@@ -509,7 +509,8 @@ public class FrEditarUsuarioOuProfessor extends javax.swing.JFrame {
     }//GEN-LAST:event_edtDepartamentoActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        // TODO add your handling code here:
+          FrListarUsuarios x = new FrListarUsuarios();
+        x.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 

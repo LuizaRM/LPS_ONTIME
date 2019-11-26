@@ -12,10 +12,14 @@ import Model.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
+import net.sf.jasperreports.engine.JRException;
+import relatorio.Relatorio;
 
 /**
  *
@@ -25,7 +29,7 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
 
     EnderecoController enderecoController = new EnderecoController();
     UsuarioController usuarioController = new UsuarioController(4, enderecoController);
-
+    ArrayList<Usuario> pdf = new ArrayList<Usuario>()
     /**
      * Creates new form FrListarUsuarios
      */
@@ -102,6 +106,7 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
         btnAdicionar = new javax.swing.JToggleButton();
         jblTitulo = new javax.swing.JLabel();
         btnCancelar2 = new javax.swing.JButton();
+        btnGerarRelatorio = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -146,6 +151,13 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
             }
         });
 
+        btnGerarRelatorio.setText("Relatório");
+        btnGerarRelatorio.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGerarRelatorioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -160,7 +172,9 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 173, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(btnGerarRelatorio)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
                 .addComponent(btnCancelar2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
             .addComponent(jblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -177,7 +191,8 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
                     .addComponent(btnEditar)
                     .addComponent(btnExcluir)
                     .addComponent(btnAdicionar)
-                    .addComponent(btnCancelar2))
+                    .addComponent(btnCancelar2)
+                    .addComponent(btnGerarRelatorio))
                 .addGap(12, 12, 12))
         );
 
@@ -289,6 +304,31 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnCancelar2ActionPerformed
 
+    private void btnGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarRelatorioActionPerformed
+        // TODO add your handling code here:
+        Usuario user = new Usuario();
+        //setar os atributos bla bla
+        user.setNome("Jose");
+        user.setCpf("dadasdas");
+        user.setEmail("josedd");
+        user.setSenha("dkasosd");
+        user.setTelefone("da");
+        user.setDepartamento("DAS");
+        user.setNivelDeAcesso(21);
+        Endereco address = new Endereco();
+        address.setRuaEndereco("bla");
+        user.setEndereco(address);
+        
+        pdf.add(user);
+        Relatorio relatorio = new Relatorio();
+        try {
+            relatorio.gerarRelatorio(pdf);
+        } catch (JRException ex) {
+            Logger.getLogger(FrListarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_btnGerarRelatorioActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -329,6 +369,7 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar2;
     private javax.swing.JToggleButton btnEditar;
     private javax.swing.JToggleButton btnExcluir;
+    private javax.swing.JButton btnGerarRelatorio;
     private javax.swing.JToggleButton btnSaibaMais;
     private javax.swing.JLabel jblTitulo;
     private javax.swing.JScrollPane spnListarusuario;
