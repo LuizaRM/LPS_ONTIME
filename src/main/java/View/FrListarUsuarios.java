@@ -70,19 +70,19 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
         tblUsuarios.setModel(tableModel);
         spnListarusuario.setViewportView(tblUsuarios);
         //deixando na tabela e removendo da visualização
-        
+
 //
         tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(0));
-        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(2-1));
-        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(3-2));
-        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(4-3));
-        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(5-4));
-        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(8-5));
-        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(9-6));
-        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(10-7));
-        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(11-8));
-        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(12-9));
-        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(14-10));
+        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(2 - 1));
+        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(3 - 2));
+        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(4 - 3));
+        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(5 - 4));
+        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(8 - 5));
+        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(9 - 6));
+        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(10 - 7));
+        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(11 - 8));
+        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(12 - 9));
+        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(14 - 10));
     }
 
     /**
@@ -255,9 +255,8 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
         System.out.println("id clicado eh " + idUsuario);
         usuarioController = new UsuarioController(2, user);
 
-//        this.dispose();
-//        FrListarUsuarios frlist = new FrListarUsuarios();
-//        frlist.setVisible(true);
+        this.dispose();
+
 
     }//GEN-LAST:event_btnEditarActionPerformed
 
