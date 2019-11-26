@@ -272,7 +272,7 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
         System.out.println(opcao);
         if (opcao == 0) {
             int row = tblUsuarios.getSelectedRow();
-            String value = tblUsuarios.getModel().getValueAt(row, 3).toString();
+            String value = tblUsuarios.getModel().getValueAt(row, 0).toString();
             System.out.println("id clicado eh " + value);
             UsuarioController usuarioController = new UsuarioController();
             usuarioController.excluir(Integer.parseInt(value));
