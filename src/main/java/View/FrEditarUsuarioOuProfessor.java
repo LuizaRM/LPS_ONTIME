@@ -520,8 +520,7 @@ public class FrEditarUsuarioOuProfessor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditUserMousePressed
 
     private void btnEditarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarUsuarioActionPerformed
-        fds // TODO add your handling code here:
-                getDadosForm
+         // TODO add your handling code here:
     }//GEN-LAST:event_btnCadastrarUsuarioActionPerformed
 
     private void edtLoginIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtLoginIdActionPerformed

@@ -11,7 +11,7 @@ public class Usuario {
     private String telefone;
     private String departamento;
     private int nivelDeAcesso;
-    private Endereco endereco;
+    private Endereco endereco; 
 
     public Endereco getEndereco() {
         return endereco;
@@ -29,7 +29,7 @@ public class Usuario {
         this.idUsuario = idUsuario;
     }
 
-    public String getNome() {
+    public String getNome() { 
         return nome;
     }
 
@@ -60,7 +60,7 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
+ 
     public String getTelefone() {
         return telefone;
     }

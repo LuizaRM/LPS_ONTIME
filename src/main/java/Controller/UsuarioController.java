@@ -64,6 +64,10 @@ public class UsuarioController {
     public UsuarioController() {
     }
 
+    public UsuarioController(int i, String value) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     public void adicionar(String nome, String cpf, String email, String senha, String telefone,
             String departamento, int nivelDeAcesso) {
 
@@ -117,5 +121,20 @@ public class UsuarioController {
     public ArrayList<Usuario> getLista() {
         return this.lista;
     }
-
+public DefaultTableModel carregarUsuarioPorTipo(int tipodeusuario) {
+        ArrayList<Usuario> lista = new ArrayList<Usuario>();
+        UsuarioDao usuarioDao = new UsuarioDao();
+        lista = usuarioDao.consultarPorNivelDeUsuario(tipodeusuario);
+        DefaultTableModel modelo = new DefaultTableModel(new String[] {"#","Tipo de Usuario","Nome","Departamento"},0);
+        for (int i=0;i<lista.size();i++){
+            Object  dados[] = {
+                lista.get(i).getNivelDeAcesso(),
+                lista.get(i).getNome(),
+                lista.get(i).getDepartamento()};
+        
+            modelo.addRow(dados);
+                
+        }
+        return modelo;    
+        }s
 }

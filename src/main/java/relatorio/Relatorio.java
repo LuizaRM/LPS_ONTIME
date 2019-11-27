@@ -6,6 +6,8 @@
 package relatorio;
 import java.awt.List;
 import Model.Usuario;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import net.sf.jasperreports.engine.JRException;
@@ -15,16 +17,17 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.view.JasperViewer;
-
 /**
  *
  * @author luikt
  */
 public class Relatorio {
-    public void gerarRelatorio(ArrayList<Usuario> lista) throws JRException{
+    public void gerarRelatorio(ArrayList<Usuario> lista) throws JRException, FileNotFoundException{
         InputStream fonte;
-        fonte = Relatorio.class.getResourceAsStream("/report/relatorio.jrxml");
-        JasperReport report = JasperCompileManager.compileReport(fonte);
+//        fonte = Relatorio.class.getResourceAsStream("report/relatorio.jrxml");
+        InputStream is = new FileInputStream("C:\\Users\\luikt.LAPTOP-S3M3GVQN\\Documents\\NetBeansProjects\\OntimeNew\\src\\main\\java\\report\\relatorio.jrxml");
+
+        JasperReport report = JasperCompileManager.compileReport(is);
         JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(lista));
         JasperViewer.viewReport(print, false); //fechar apenas a aplicacao, sem fechar a aplicacao
         

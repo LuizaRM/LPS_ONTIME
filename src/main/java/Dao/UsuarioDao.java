@@ -181,5 +181,29 @@ public class UsuarioDao {
         }
         return objUsuario;
     }
+public ArrayList<Usuario> consultarPorNivelDeUsuario(int tipodeusuario) {
+        ArrayList<Usuario> lista = new ArrayList();
+        String sql = "SELECT * FROM Usuario WHERE Usuario.nivelUsuario = ?";
+        try {
 
+            conectar = Conexao.conectar();
+            PreparedStatement stmt = conectar.prepareStatement(sql);
+            stmt.setInt(1, tipodeusuario);
+            stmt.executeQuery();
+            ResultSet rs = stmt.getResultSet();
+
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                usuario.setNivelDeAcesso(rs.getInt("nivelUsuario"));
+                usuario.setNome(rs.getString("nomeUsuario"));
+                usuario.setDepartamento(rs.getString("departamentoUsuario"));
+
+                lista.add(usuario);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return lista;
+    }
 }

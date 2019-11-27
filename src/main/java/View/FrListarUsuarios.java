@@ -11,6 +11,7 @@ import Model.Endereco;
 import Model.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +30,9 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
 
     EnderecoController enderecoController = new EnderecoController();
     UsuarioController usuarioController = new UsuarioController(4, enderecoController);
-    ArrayList<Usuario> pdf = new ArrayList<Usuario>()
+    ArrayList<Usuario> pdf = new ArrayList<>();
+    DefaultTableModel tableModel;
+
     /**
      * Creates new form FrListarUsuarios
      */
@@ -45,7 +48,7 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
     public void carregarListaUsuarios() {
         ArrayList<Usuario> lista = usuarioController.getLista();
         String[] columnNames = {"idUsuario", "nomeUsuario", "cpfUsuario", "emailUsuario", "senhaUsuario", "telefoneUsuario", "departamentoUsuario", "nivelUsuario", "idEndereco", "ruaEndereco", "numeroEndereco", "complementoEndereco", "bairroEndereco", "cidadeEndereco", "estadoEndereco"};
-        DefaultTableModel tableModel = new DefaultTableModel(columnNames, 0);
+        tableModel = new DefaultTableModel(columnNames, 0);
         //idu, nome, cpf, email, senha, telefone, departamento, nivel
         //ide, rua, numero, complemento, bairro, cidade, estado
         for (int i = 0; i < lista.size(); i++) {
@@ -276,13 +279,16 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnSaibaMaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaibaMaisActionPerformed
+        //consultar e o id do campo q clicou
+        String value = tblUsuarios.getModel().getValueAt(0, 0).toString();
+        UsuarioController usuarioController = new UsuarioController(4,value);
         FrFichaUsuario telaFichaUsuario = new FrFichaUsuario();
         telaFichaUsuario.setVisible(true);
     }//GEN-LAST:event_btnSaibaMaisActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int opcao = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir a conta?");
-        // 0=yes, 1=no, 2=cancel
+        // 0=yes, 1=no, 2=cancel    
         System.out.println(opcao);
         if (opcao == 0) {
             int row = tblUsuarios.getSelectedRow();
@@ -306,27 +312,29 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
 
     private void btnGerarRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGerarRelatorioActionPerformed
         // TODO add your handling code here:
-        Usuario user = new Usuario();
+        //idu, nome, cpf, email, senha, telefone, departamento, nivel
+        //ide, rua, numero, complemento, bairro, cidade, estado
+        for (int count = 0; count < tableModel.getRowCount(); count++) {
+            Usuario user = new Usuario();
+            user.setNome(tableModel.getValueAt(count, 1).toString());
+            user.setCpf(tableModel.getValueAt(count, 2).toString());
+            user.setEmail(tableModel.getValueAt(count, 3).toString());
+            user.setSenha(tableModel.getValueAt(count, 4).toString());
+            user.setTelefone(tableModel.getValueAt(count, 5).toString());
+            user.setDepartamento(tableModel.getValueAt(count, 6).toString());
+            pdf.add(user);
+        }
         //setar os atributos bla bla
-        user.setNome("Jose");
-        user.setCpf("dadasdas");
-        user.setEmail("josedd");
-        user.setSenha("dkasosd");
-        user.setTelefone("da");
-        user.setDepartamento("DAS");
-        user.setNivelDeAcesso(21);
-        Endereco address = new Endereco();
-        address.setRuaEndereco("bla");
-        user.setEndereco(address);
-        
-        pdf.add(user);
+
         Relatorio relatorio = new Relatorio();
         try {
             relatorio.gerarRelatorio(pdf);
         } catch (JRException ex) {
             Logger.getLogger(FrListarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FrListarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_btnGerarRelatorioActionPerformed
 
     /**
