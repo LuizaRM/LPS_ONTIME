@@ -6,6 +6,11 @@
 package View;
 
 import Controller.TurmaController;
+import Controller.UsuarioController;
+import Model.Curso;
+import Model.Disciplina;
+import Model.Endereco;
+import Model.Professor;
 import Model.Turma;
 import Model.Usuario;
 import java.awt.Dimension;
@@ -44,18 +49,16 @@ public class FrListarTurma extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        spnListarusuario = new javax.swing.JScrollPane();
-        tblTurmas = new javax.swing.JTable();
         btnEditar = new javax.swing.JToggleButton();
         btnExcluir = new javax.swing.JToggleButton();
         btnAdicionar = new javax.swing.JToggleButton();
         jblTitulo = new javax.swing.JLabel();
         btnCancelar2 = new javax.swing.JButton();
         btnSaibaMais = new javax.swing.JToggleButton();
+        spnListarTurmas = new javax.swing.JScrollPane();
+        tblTurmas = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        spnListarusuario.setViewportView(tblTurmas);
 
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -89,39 +92,46 @@ public class FrListarTurma extends javax.swing.JFrame {
             }
         });
 
-        btnSaibaMais.setText("Saiba Mais");
+        btnSaibaMais.setText("Ver mais");
         btnSaibaMais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaibaMaisActionPerformed(evt);
             }
         });
 
+        spnListarTurmas.setViewportView(tblTurmas);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(spnListarusuario)
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(btnSaibaMais, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(169, 169, 169)
+                .addGap(464, 464, 464)
                 .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCancelar2, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+                .addComponent(btnCancelar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addComponent(jblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(80, 80, 80))
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(spnListarTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(jblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnListarusuario, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
+                .addComponent(spnListarTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(73, 73, 73)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
                     .addComponent(btnExcluir)
@@ -136,55 +146,58 @@ public class FrListarTurma extends javax.swing.JFrame {
 
     public void carregarListaUsuarios() {
         ArrayList<Turma> lista = turmaController.getLista();
-        String[] columnNames = {"idTurma", "nome prof"};
+        String[] columnNames = {"idTurma", "idCurso", "idDisciplina", "idProfessor",
+            "nomeDisciplina", "nomeCurso", "nomeProfessor",
+            "anoTurma", "salaTurma", "semestreTurma", "periodoTurma",};
         tableModel = new DefaultTableModel(columnNames, 0);
-        //idu, nome, cpf, email, senha, telefone, departamento, nivel
-        //ide, rua, numero, complemento, bairro, cidade, estado
+        System.out.println("lista size = " + lista.size());
         for (int i = 0; i < lista.size(); i++) {
-            int id = lista.get(i).getIdTurma();
-            String nome = lista.get(i).getProfessor().getUsuario().getNome();
-//            String cpf = lista.get(i).getCpf();
-//            String email = lista.get(i).getEmail();
-//            String senha = lista.get(i).getSenha();
-//            String telefone = lista.get(i).getTelefone();
-//            String departamento = lista.get(i).getDepartamento();
-//            int nivel = lista.get(i).getNivelDeAcesso();
-//
-//            int idE = lista.get(i).getEndereco().getIdEndereco();
-//            String rua = lista.get(i).getEndereco().getRuaEndereco();
-//            String numero = lista.get(i).getEndereco().getNumeroEndereco();
-//            String complemento = lista.get(i).getEndereco().getComplementoEndereco();
-//            String bairro = lista.get(i).getEndereco().getBairroEndereco();
-//            String cidade = lista.get(i).getEndereco().getCidadeEndereco();
-//            String estado = lista.get(i).getEndereco().getEstadoEndereco();
+            //professor
+            int idP = lista.get(i).getProfessor().getId();
+            String nomeP = lista.get(i).getProfessor().getUsuario().getNome();
+            System.out.println("o id ehhhhhh" + idP);
+            //disciplina
+            int idD = lista.get(i).getDisciplina().getIdDisciplina();
+            String nomeD = lista.get(i).getDisciplina().getNomeDisciplina();
 
-            //System.out.println(tipo + nome + departamento);
-            String[] data = {Integer.toString(id), nome};
+            //curso
+            int idC = lista.get(i).getIdCurso();
+            String nomeC = lista.get(i).getCurso().getNome();
+
+            //turma
+            int idT = lista.get(i).getIdTurma();
+            int anoT = lista.get(i).getAnoTurma();
+            String salaT = lista.get(i).getSalaTurma();
+            int semestreT = lista.get(i).getSemestreTurma();
+            int periodoT = lista.get(i).getPeriodoTurma();
+            //idt, idp, idd, idc, nomed, nomec, nomep, anot, salat, semestret, periodot
+            String[] data = {Integer.toString(idT), Integer.toString(idC), Integer.toString(idD), Integer.toString(idP),
+                nomeD, nomeC, nomeP, Integer.toString(anoT), salaT, Integer.toString(semestreT), Integer.toString(periodoT),};
 
             tableModel.addRow(data);
         }
         tblTurmas.setModel(tableModel);
-        spnListarusuario.setViewportView(tblTurmas);
+        spnListarTurmas.setViewportView(tblTurmas);
         //deixando na tabela e removendo da visualização
 
 //
-//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(0));
-//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(2 - 1));
-//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(3 - 2));
-//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(4 - 3));
-//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(5 - 4));
-//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(8 - 5));
-//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(9 - 6));
-//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(10 - 7));
-//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(11 - 8));
-//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(12 - 9));
-//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(14 - 10));
+        tblTurmas.removeColumn(tblTurmas.getColumnModel().getColumn(0));
+        tblTurmas.removeColumn(tblTurmas.getColumnModel().getColumn(0));
+        tblTurmas.removeColumn(tblTurmas.getColumnModel().getColumn(0));
+        tblTurmas.removeColumn(tblTurmas.getColumnModel().getColumn(0));
+        tblTurmas.removeColumn(tblTurmas.getColumnModel().getColumn(6));
+        tblTurmas.removeColumn(tblTurmas.getColumnModel().getColumn(5));
+        tblTurmas.removeColumn(tblTurmas.getColumnModel().getColumn(4));
+
     }
 
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        FrAdicionarTurma telaAdicionarTurma2 = new FrAdicionarTurma();
-        telaAdicionarTurma2.setVisible(true);
+        this.dispose();
+        TurmaController turmaController = new TurmaController(1);
+        
+      
+        
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
@@ -196,6 +209,7 @@ public class FrListarTurma extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int opcao = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir o horário?");
         // 0=yes, 1=no, 2=cancel
+        
         System.out.println(opcao);
 
     }//GEN-LAST:event_btnExcluirActionPerformed
@@ -206,8 +220,42 @@ public class FrListarTurma extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCancelar2ActionPerformed
 
     private void btnSaibaMaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaibaMaisActionPerformed
-        FrFichaTurma telaFichaTurma = new FrFichaTurma();
-        telaFichaTurma.setVisible(true);
+        Turma turma = new Turma();
+        int row = tblTurmas.getSelectedRow();
+        //idt, idp, idd, idc, nomed, nomec, nomep, anot, salat, semestret, periodot
+        //idt, idc, idd, idp
+
+        Disciplina d = new Disciplina();
+        String nomeD = tblTurmas.getModel().getValueAt(row, 4).toString();
+        d.setNomeDisciplina(nomeD);
+        turma.setDisciplina(d);
+
+        String nomeC = tblTurmas.getModel().getValueAt(row, 5).toString();
+        Curso c = new Curso();
+        c.setNome(nomeC);
+        turma.setCurso(c);
+
+        String nomeP = tblTurmas.getModel().getValueAt(row, 6).toString();
+        Professor p = new Professor();
+        
+        Usuario u = new Usuario();
+        u.setNome(nomeP);
+        p.setUsuario(u);
+        turma.setProfessor(p);
+
+        String anoT = tblTurmas.getModel().getValueAt(row, 7).toString();
+        turma.setAnoTurma(Integer.parseInt(anoT));
+
+        String salaT = tblTurmas.getModel().getValueAt(row, 8).toString();
+        turma.setSalaTurma(salaT);
+
+        String semestreT = tblTurmas.getModel().getValueAt(row, 9).toString();
+        turma.setSemestreTurma(Integer.parseInt(semestreT));
+
+        String periodoT = tblTurmas.getModel().getValueAt(row, 10).toString();
+        turma.setPeriodoTurma(Integer.parseInt(periodoT));
+
+        TurmaController turmaController = new TurmaController(turma);
 
     }//GEN-LAST:event_btnSaibaMaisActionPerformed
 
@@ -256,7 +304,7 @@ public class FrListarTurma extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnExcluir;
     private javax.swing.JToggleButton btnSaibaMais;
     private javax.swing.JLabel jblTitulo;
-    private javax.swing.JScrollPane spnListarusuario;
+    private javax.swing.JScrollPane spnListarTurmas;
     private javax.swing.JTable tblTurmas;
     // End of variables declaration//GEN-END:variables
 }

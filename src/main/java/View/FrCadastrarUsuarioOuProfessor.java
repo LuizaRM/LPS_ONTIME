@@ -167,6 +167,8 @@ public class FrCadastrarUsuarioOuProfessor extends javax.swing.JFrame {
 
         jlbSenha.setText("Senha");
 
+        edtCPF.setText("   .   .   -  ");
+
         edtTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edtTelefoneActionPerformed(evt);

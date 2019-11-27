@@ -442,7 +442,7 @@ public class FrEditarUsuarioOuProfessor extends javax.swing.JFrame {
         String nome = edtNome.getText();
         String cpf = edtCPF.getText();
         String email = edtEmail.getText();
-        String senha = pswSenha.getText();
+        //String senha = pswSenha.getText();
         String telefone = edtTelefone.getText();
         String departamento = edtDepartamento.getText();
 //        String nivelDeAcessoA = rbtNivel1Admin.getActionCommand();
@@ -464,9 +464,9 @@ public class FrEditarUsuarioOuProfessor extends javax.swing.JFrame {
         if (email.isEmpty()) {
             msgErro += "Email não informado\n";
         }
-        if (senha.isEmpty()) {
-            msgErro += "Senha não informada\n";
-        }
+//        if (senha.isEmpty()) {
+//            msgErro += "Senha não informada\n";
+//        }
         if (telefone.isEmpty()) {
             msgErro += "Telefone não informado\n";
         }

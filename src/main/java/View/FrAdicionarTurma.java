@@ -5,8 +5,14 @@
  */
 package View;
 
+import Controller.TurmaController;
+import Model.Curso;
+import Model.Disciplina;
+import Model.Professor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
@@ -18,6 +24,11 @@ import javax.swing.JTable;
  */
 public class FrAdicionarTurma extends javax.swing.JFrame {
 
+    TurmaController turmaController = new TurmaController();
+    ArrayList<Curso> listaCurso = new ArrayList<>();
+    ArrayList<Curso> listaDisciplina = new ArrayList<>();
+    ArrayList<Curso> listaProfessor = new ArrayList<>();
+
     /**
      * Creates new form FrAdicionarHorario
      */
@@ -26,6 +37,24 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+
+        turmaController.getDadosCurso();
+        ArrayList<Curso> oi = this.turmaController.getListaCurso();
+        for (int i = 0; i < oi.size(); i++) {
+            cbxCurso1.addItem(Integer.toString(oi.get(i).getId()));
+        }
+
+        turmaController.getDadosDisciplina();
+        ArrayList<Disciplina> listaD = this.turmaController.getListaDisciplina();
+        for (int i = 0; i < listaD.size(); i++) {
+            cbxDisciplina.addItem(Integer.toString(listaD.get(i).getIdDisciplina()));
+        }
+
+        turmaController.getDadosProfessor();
+        ArrayList<Professor> listaP = this.turmaController.getListaProfessor();
+        for (int i = 0; i < listaP.size(); i++) {
+            cbxProfessor.addItem(Integer.toString(listaP.get(i).getId()));
+        }
     }
 
     /**
@@ -46,14 +75,16 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         cbxDisciplina = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        cbxAno = new javax.swing.JComboBox<>();
-        cbxSenestre = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
         cbxSemestre = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cbxProfessor = new javax.swing.JComboBox<>();
         jLabel5 = new javax.swing.JLabel();
-        cbxPeriodo = new javax.swing.JComboBox<>();
+        edtAno = new javax.swing.JTextField();
+        edtSemestre = new javax.swing.JTextField();
+        edtPeriodo = new javax.swing.JTextField();
+        edtSala = new javax.swing.JTextField();
+        jLabel18 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
@@ -78,8 +109,9 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
         jScrollPane4 = new javax.swing.JScrollPane();
         listQuinta = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
-        listaSexta = new javax.swing.JList<>();
+        listSexta = new javax.swing.JList<>();
         btnCadastrarHorarioTurma = new javax.swing.JButton();
+        btnCadastrarHorarioTurma1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,7 +127,6 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
 
         jlbCurso1.setText("Curso");
 
-        cbxCurso1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Computação", "Laticinios", "MAtematica" }));
         cbxCurso1.setSelectedIndex(-1);
 
         btnCadastrarUsuario.setText("Cadastrar");
@@ -112,18 +143,7 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
             }
         });
 
-        cbxDisciplina.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel1.setText("Disciplina");
-
-        cbxAno.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        cbxSenestre.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbxSenestre.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbxSenestreActionPerformed(evt);
-            }
-        });
 
         jLabel2.setText("Ano");
 
@@ -131,11 +151,9 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
 
         jLabel4.setText("Professor");
 
-        cbxProfessor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         jLabel5.setText("Período");
 
-        cbxPeriodo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel18.setText("Sala");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -151,20 +169,22 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
                             .addComponent(jLabel2)
                             .addComponent(cbxSemestre)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel5))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel18))
                         .addGap(21, 21, 21)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cbxDisciplina, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbxCurso1, 0, 295, Short.MAX_VALUE)
-                            .addComponent(cbxPeriodo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(cbxProfessor, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxSenestre, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbxAno, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(edtAno)
+                            .addComponent(edtSemestre)
+                            .addComponent(edtPeriodo)
+                            .addComponent(edtSala, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(287, 287, 287)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnCadastrarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(124, 124, 124)
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnCadastrarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(299, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -180,12 +200,12 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
                     .addComponent(cbxCurso1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbxAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
+                    .addComponent(jLabel2)
+                    .addComponent(edtAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbxSemestre)
-                    .addComponent(cbxSenestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(edtSemestre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -193,12 +213,16 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(cbxPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
-                .addComponent(btnCadastrarUsuario)
+                    .addComponent(edtPeriodo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnCancelar)
-                .addGap(12, 12, 12))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(edtSala, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel18))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastrarUsuario)
+                    .addComponent(btnCancelar))
+                .addGap(75, 75, 75))
         );
 
         jTabbedPane1.addTab("Sobre a Turma", jPanel1);
@@ -352,19 +376,26 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
         });
         jScrollPane4.setViewportView(listQuinta);
 
-        listaSexta.setBorder(javax.swing.BorderFactory.createTitledBorder("SEXTA-FEIRA"));
-        listaSexta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        listaSexta.setModel(new javax.swing.AbstractListModel<String>() {
+        listSexta.setBorder(javax.swing.BorderFactory.createTitledBorder("SEXTA-FEIRA"));
+        listSexta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        listSexta.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane5.setViewportView(listaSexta);
+        jScrollPane5.setViewportView(listSexta);
 
         btnCadastrarHorarioTurma.setText("Cadastrar");
         btnCadastrarHorarioTurma.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCadastrarHorarioTurmaActionPerformed(evt);
+            }
+        });
+
+        btnCadastrarHorarioTurma1.setText("Cancelar");
+        btnCadastrarHorarioTurma1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCadastrarHorarioTurma1ActionPerformed(evt);
             }
         });
 
@@ -387,6 +418,8 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
                 .addGap(13, 13, 13))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnCadastrarHorarioTurma1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
                 .addComponent(btnCadastrarHorarioTurma, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(283, 283, 283))
         );
@@ -401,7 +434,9 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
                     .addComponent(jScrollPane4)
                     .addComponent(jScrollPane5))
                 .addGap(18, 18, 18)
-                .addComponent(btnCadastrarHorarioTurma)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnCadastrarHorarioTurma)
+                    .addComponent(btnCadastrarHorarioTurma1))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -425,6 +460,10 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void getDadosCurso() {
+        turmaController.getDadosCurso();
+    }
+
     public String validaCampos() {
 
         //String nome = edtNome.getText();
@@ -440,9 +479,13 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
         return msgErro;
     }
 
+
     private void btnCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarUsuarioActionPerformed
-        String msgErro = this.validaCampos();
-        JOptionPane.showMessageDialog(this, msgErro);
+//        String msgErro = this.validaCampos();
+//        JOptionPane.showMessageDialog(this, msgErro);
+        this.dispose();
+        FrListarTurma fr = new FrListarTurma();
+        fr.setVisible(true);
 
     }//GEN-LAST:event_btnCadastrarUsuarioActionPerformed
 
@@ -455,17 +498,37 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jTabbedPane1MousePressed
 
-    private void cbxSenestreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxSenestreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxSenestreActionPerformed
-
     private void jPanel2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MousePressed
         // TODO add your handling code here:
     }//GEN-LAST:event_jPanel2MousePressed
 
     private void btnCadastrarHorarioTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarHorarioTurmaActionPerformed
         // TODO add your handling code here:
+        String disciplina = (String) cbxDisciplina.getSelectedItem();
+        String curso = (String) cbxCurso1.getSelectedItem();
+        String ano = (String) edtAno.getText();
+        String semestre = (String) edtSemestre.getText();
+        String professor = (String) cbxProfessor.getSelectedItem();
+        String periodo = (String) edtPeriodo.getText();
+        String sala = (String) edtSala.getText();
+
+        //verifico segunda, ai se for maior q 5, por exemplo é turno manhã, diahorario 0 e numero horario 5
+        List<String> segunda = listSegunda.getSelectedValuesList();
+        List<String> terca = listTerca.getSelectedValuesList();
+        List<String> quarta = listQuarta.getSelectedValuesList();
+        List<String> quinta = listQuinta.getSelectedValuesList();
+        List<String> sexta = listSexta.getSelectedValuesList();
+
+        //na frente verifico se isEmpty
+        turmaController.adicionar(disciplina, curso, professor, ano, semestre, periodo, segunda, terca, quarta, quinta, sexta, sala);
+        this.dispose();
+
     }//GEN-LAST:event_btnCadastrarHorarioTurmaActionPerformed
+
+    private void btnCadastrarHorarioTurma1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarHorarioTurma1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_btnCadastrarHorarioTurma1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -519,15 +582,17 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarHorarioTurma;
+    private javax.swing.JButton btnCadastrarHorarioTurma1;
     private javax.swing.JButton btnCadastrarUsuario;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JComboBox<String> cbxAno;
     private javax.swing.JComboBox<String> cbxCurso1;
     private javax.swing.JComboBox<String> cbxDisciplina;
-    private javax.swing.JComboBox<String> cbxPeriodo;
     private javax.swing.JComboBox<String> cbxProfessor;
     private javax.swing.JLabel cbxSemestre;
-    private javax.swing.JComboBox<String> cbxSenestre;
+    private javax.swing.JTextField edtAno;
+    private javax.swing.JTextField edtPeriodo;
+    private javax.swing.JTextField edtSala;
+    private javax.swing.JTextField edtSemestre;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -537,6 +602,7 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -559,7 +625,7 @@ public class FrAdicionarTurma extends javax.swing.JFrame {
     private javax.swing.JList<String> listQuarta;
     private javax.swing.JList<String> listQuinta;
     private javax.swing.JList<String> listSegunda;
+    private javax.swing.JList<String> listSexta;
     private javax.swing.JList<String> listTerca;
-    private javax.swing.JList<String> listaSexta;
     // End of variables declaration//GEN-END:variables
 }

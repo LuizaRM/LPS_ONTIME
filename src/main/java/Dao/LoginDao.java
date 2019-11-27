@@ -1,6 +1,7 @@
-
 package Dao;
 
+import View.FrInicioAdm;
+import View.FrInicioProfessor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -30,7 +31,18 @@ public class LoginDao {
             ResultSet rs = ps.executeQuery();
 
             if (rs.first()) {
+                int nivel = rs.getInt("nivelUsuario");
+
                 JOptionPane.showMessageDialog(null, "Login feito com sucesso");
+                if (nivel == 0) {
+                    //abre tela professor
+                    FrInicioProfessor frp = new FrInicioProfessor();
+                    frp.setVisible(true);
+                } else {
+                    //abre tela administrador
+                    FrInicioAdm fra = new FrInicioAdm();
+                    fra.setVisible(true);
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Login ou senha inválidos");
 
@@ -47,7 +59,5 @@ public class LoginDao {
     public void alterar(Object obj) {
 
     }
-
-  
 
 }

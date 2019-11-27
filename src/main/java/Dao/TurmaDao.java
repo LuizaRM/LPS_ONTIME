@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 public class TurmaDao {
@@ -21,27 +22,31 @@ public class TurmaDao {
         conectar = Conexao.conectar();
     }
 
-    public void adicionar(Object obj) {
+    public void adicionar(String disciplina, String curso, String professor, String ano, String semestre, String periodo, List<String> segunda, List<String> terca, List<String> quarta, List<String> quinta, List<String> sexta, String sala) {
         String sql;
         PreparedStatement ps;
-        Turma turma = (Turma) obj;
-
+        Turma turma = new Turma();
+        //primeiro insere em turma, depois o horário da turma
         try {
-            sql = "INSERT INTO Turma( idTurma, idDisciplina, idProfessor, idCurso, anoTurma;\n"
-                    + " semestreTurma, salaTurma, periodoTurmao) VALUES(?,?,?,?,?,?,?,?)";
+            //evitar verificação de chave estrangeira
+            PreparedStatement teste = conectar.prepareStatement("SET FOREIGN_KEY_CHECKS=0");
+            teste.execute();
+            sql = "INSERT INTO Turma(idDisciplina, idProfessor, idCurso, anoTurma,"
+                    + " semestreTurma, salaTurma, periodoTurma) VALUES(?,?,?,?,?,?,?)";
+//String disciplina, String curso, String professor, String ano, String semestre, String periodo,
+//List<String> segunda, List<String> terca, List<String> quarta, List<String> quinta, List<String> sexta
 
             ps = conectar.prepareStatement(sql);
-            ps.setInt(1, turma.getIdTurma());
-            ps.setInt(2, turma.getIdDisciplina());
-            ps.setInt(3, turma.getIdProfessor());
-            ps.setInt(4, turma.getIdCurso());
-            ps.setInt(5, turma.getAnoTurma());
-            ps.setInt(6, turma.getSemestreTurma());
-            ps.setString(7, turma.getSalaTurma());
-            ps.setInt(8, turma.getPeriodoTurma());
-            ResultSet rs = ps.executeQuery();
+            ps.setInt(1, Integer.parseInt(disciplina));
+            ps.setInt(2, Integer.parseInt(professor));
+            ps.setInt(3, Integer.parseInt(curso));
+            ps.setInt(4, Integer.parseInt(ano));
+            ps.setInt(5, Integer.parseInt(semestre));
+            ps.setInt(6, Integer.parseInt(sala));
+            ps.setString(7, periodo);
+            int rs = ps.executeUpdate();
 
-            if (rs.first()) {
+            if (rs >= 1) {
                 JOptionPane.showMessageDialog(null, "Turma cadastrada com sucesso");
             } else {
                 JOptionPane.showMessageDialog(null, "Erro ao cadastrar Turma");
@@ -109,6 +114,79 @@ public class TurmaDao {
         }
     }//FIM DO ALTERAR
 
+    public ArrayList<Curso> getDadosCurso() {
+        String sql;
+        PreparedStatement ps;
+        ArrayList<Curso> objCurso = new ArrayList<>();
+
+        try {
+            sql = "SELECT * FROM Curso";
+            //"idTurma", "anoTurma", "semestreTurma", "salaTurma", "periodoTurma", "nomeDisciplina", "nomeCurso"};
+
+            ps = conectar.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Curso curso = new Curso();
+                curso.setId(rs.getInt("idCurso"));
+                objCurso.add(curso);
+            }
+
+        } catch (SQLException se) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erroXAXA!\n" + se);
+        }
+        return objCurso;
+    }
+
+    public ArrayList<Professor> getDadosProfessor() {
+        String sql;
+        PreparedStatement ps;
+        ArrayList<Professor> objProfessor = new ArrayList<>();
+
+        try {
+            sql = "SELECT * FROM Professor p, Usuario u WHERE p.idUsuario = u.idUsuario";
+            //"idTurma", "anoTurma", "semestreTurma", "salaTurma", "periodoTurma", "nomeDisciplina", "nomeCurso"};
+
+            ps = conectar.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Professor p = new Professor();
+                p.setId(rs.getInt("p.idProfessor"));
+                System.out.println("idkdokdkodadok aquii ale " + p.getId());
+                objProfessor.add(p);
+            }
+
+        } catch (SQLException se) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erroXAXA!\n" + se);
+        }
+        return objProfessor;
+    }
+
+    public ArrayList<Disciplina> getDadosDisciplina() {
+        String sql;
+        PreparedStatement ps;
+        ArrayList<Disciplina> objDisciplina = new ArrayList<>();
+
+        try {
+            sql = "SELECT * FROM Disciplina";
+            //"idTurma", "anoTurma", "semestreTurma", "salaTurma", "periodoTurma", "nomeDisciplina", "nomeCurso"};
+
+            ps = conectar.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Disciplina disciplina = new Disciplina();
+                disciplina.setIdDisciplina(rs.getInt("idDisciplina"));
+                objDisciplina.add(disciplina);
+            }
+
+        } catch (SQLException se) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erroXAXA!\n" + se);
+        }
+        return objDisciplina;
+    }
+
     public ArrayList<Turma> consultar() {
         String sql;
         PreparedStatement ps;
@@ -140,26 +218,25 @@ public class TurmaDao {
                 disciplina.setCargaHorariaDisciplina(rs.getString("d.cargaHorariaDisciplina"));
                 disciplina.setCodigoDisciplina(rs.getString("d.codigoDisciplina"));
                 turma.setDisciplina(disciplina);
-                
+
                 Professor p = new Professor();
                 Usuario u = new Usuario();
                 u.setNome(rs.getString("u.nomeUsuario"));
-                u.setIdUsuario(rs.getInt("u.idUsuario"));
                 p.setId(rs.getInt("p.idProfessor"));
                 p.setUsuario(u);
                 turma.setProfessor(p);
-                
+                System.out.println("o id daquiiiiiiiii" + p.getId());
+
                 Curso c = new Curso();
-                c.setId(rs.getInt("c.idUsuario"));
-                c.setNome(rs.getString("c.nomeUsuario"));
+                c.setId(rs.getInt("c.idCurso"));
+                c.setNome(rs.getString("c.nomeCurso"));
                 turma.setCurso(c);
 
-                
                 objTurma.add(turma);
             }
 
         } catch (SQLException se) {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro!\n" + se);
+            JOptionPane.showMessageDialog(null, "Ocorreu um erroXAXA!\n" + se);
         }
         return objTurma;
     }

@@ -62,7 +62,6 @@ public class FrInicioAdm extends javax.swing.JFrame {
         mniTrocarSenha = new javax.swing.JMenuItem();
         mniSair = new javax.swing.JMenuItem();
         jmnUsuario = new javax.swing.JMenu();
-        mniNovoUsuaio = new javax.swing.JMenuItem();
         mniListarUsuarios = new javax.swing.JMenuItem();
         mnuHorario = new javax.swing.JMenu();
         mniNovoHorario = new javax.swing.JMenuItem();
@@ -224,14 +223,6 @@ public class FrInicioAdm extends javax.swing.JFrame {
 
         jmnUsuario.setText("Usuario");
 
-        mniNovoUsuaio.setText("Novo Usuario");
-        mniNovoUsuaio.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mniNovoUsuaioActionPerformed(evt);
-            }
-        });
-        jmnUsuario.add(mniNovoUsuaio);
-
         mniListarUsuarios.setText("Usuários");
         mniListarUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -362,13 +353,6 @@ public class FrInicioAdm extends javax.swing.JFrame {
         adicionarDisciplina.setVisible(true);
         
     }//GEN-LAST:event_mniNovaDisciplinaActionPerformed
-
-    private void mniNovoUsuaioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniNovoUsuaioActionPerformed
-        // TODO add your handling code here:
-//        FrCadastrarUsuarioOuProfessor telaCadastro = new FrCadastrarUsuarioOuProfessor();
-        //telaCadastro.setVisible(true);
-                
-    }//GEN-LAST:event_mniNovoUsuaioActionPerformed
 
     private void mnuProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuProfessorActionPerformed
         // TODO add your handling code here:
@@ -517,7 +501,6 @@ public class FrInicioAdm extends javax.swing.JFrame {
     private javax.swing.JMenuItem mniNovaTurma;
     private javax.swing.JMenuItem mniNovoHorario;
     private javax.swing.JMenuItem mniNovoProfessor;
-    private javax.swing.JMenuItem mniNovoUsuaio;
     private javax.swing.JMenuItem mniSair;
     private javax.swing.JMenuItem mniTrocarSenha;
     private javax.swing.JMenu mnu;

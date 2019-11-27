@@ -301,6 +301,9 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="edtCPF">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="   .   .   -  "/>
+              </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="edtEmail">
             </Component>
