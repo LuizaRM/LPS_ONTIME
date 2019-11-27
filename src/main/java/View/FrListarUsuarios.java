@@ -110,12 +110,14 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
         jblTitulo = new javax.swing.JLabel();
         btnCancelar2 = new javax.swing.JButton();
         btnGerarRelatorio = new javax.swing.JButton();
+        btnPesquisarTipodeUsuario = new javax.swing.JButton();
+        textTipodeUsuario = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         spnListarusuario.setViewportView(tblUsuarios);
 
-        btnSaibaMais.setText("Saiba Mais");
+        btnSaibaMais.setText("Ver mais");
         btnSaibaMais.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnSaibaMaisActionPerformed(evt);
@@ -161,34 +163,62 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
             }
         });
 
+        btnPesquisarTipodeUsuario.setText("Pesquisar");
+        btnPesquisarTipodeUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarTipodeUsuarioActionPerformed(evt);
+            }
+        });
+
+        textTipodeUsuario.setText("Pesquise por tipo de usuário...");
+        textTipodeUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textTipodeUsuarioActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(spnListarusuario)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
-                .addComponent(btnSaibaMais, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnGerarRelatorio)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
-                .addComponent(btnCancelar2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
             .addComponent(jblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textTipodeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(btnPesquisarTipodeUsuario)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(btnSaibaMais, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnGerarRelatorio)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 80, Short.MAX_VALUE)
+                        .addComponent(btnCancelar2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(spnListarusuario)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addComponent(jblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(spnListarusuario, javax.swing.GroupLayout.DEFAULT_SIZE, 331, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnPesquisarTipodeUsuario)
+                    .addComponent(textTipodeUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(spnListarusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSaibaMais)
                     .addComponent(btnEditar)
@@ -280,10 +310,66 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
 
     private void btnSaibaMaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaibaMaisActionPerformed
         //consultar e o id do campo q clicou
-        String value = tblUsuarios.getModel().getValueAt(0, 0).toString();
-        UsuarioController usuarioController = new UsuarioController(4,value);
-        FrFichaUsuario telaFichaUsuario = new FrFichaUsuario();
-        telaFichaUsuario.setVisible(true);
+        Usuario user = new Usuario();
+        int row = tblUsuarios.getSelectedRow();
+        //seta os dados do usuario
+        //idu, nome, cpf, email, senha, telefone, departamento, nivel
+        //ide, rua, numero, complemento, bairro, cidade, estado
+
+        String idUsuario = tblUsuarios.getModel().getValueAt(row, 0).toString();
+        user.setIdUsuario(Integer.parseInt(idUsuario));
+
+        String nome = tblUsuarios.getModel().getValueAt(row, 1).toString();
+        user.setNome(nome);
+
+        String cpf = tblUsuarios.getModel().getValueAt(row, 2).toString();
+        user.setCpf(cpf);
+
+        String email = tblUsuarios.getModel().getValueAt(row, 3).toString();
+        user.setEmail(email);
+
+        String senha = tblUsuarios.getModel().getValueAt(row, 4).toString();
+        user.setSenha(senha);
+
+        String telefone = tblUsuarios.getModel().getValueAt(row, 5).toString();
+        user.setTelefone(telefone);
+
+        String departamento = tblUsuarios.getModel().getValueAt(row, 6).toString();
+        user.setDepartamento(departamento);
+
+        String nivel = tblUsuarios.getModel().getValueAt(row, 7).toString();
+        user.setNivelDeAcesso(Integer.parseInt(nivel));
+
+        //seta os dados do endereco
+        Endereco address = new Endereco();
+
+        String idEndereco = tblUsuarios.getModel().getValueAt(row, 8).toString();
+        address.setIdEndereco(Integer.parseInt(idEndereco));
+
+        String rua = tblUsuarios.getModel().getValueAt(row, 9).toString();
+        address.setRuaEndereco(rua);
+
+        String numero = tblUsuarios.getModel().getValueAt(row, 10).toString();
+        address.setNumeroEndereco(numero);
+
+        String complemento = tblUsuarios.getModel().getValueAt(row, 11).toString();
+        address.setComplementoEndereco(complemento);
+
+        String bairro = tblUsuarios.getModel().getValueAt(row, 12).toString();
+        address.setBairroEndereco(bairro);
+
+        String cidade = tblUsuarios.getModel().getValueAt(row, 13).toString();
+        address.setCidadeEndereco(cidade);
+
+        String estado = tblUsuarios.getModel().getValueAt(row, 14).toString();
+        address.setEstadoEndereco(estado);
+
+        user.setEndereco(address);
+
+        System.out.println("id clicado eh " + idUsuario);
+
+        UsuarioController usuarioController = new UsuarioController(user);
+
     }//GEN-LAST:event_btnSaibaMaisActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -337,6 +423,40 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnGerarRelatorioActionPerformed
 
+    private void textTipodeUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textTipodeUsuarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textTipodeUsuarioActionPerformed
+
+    private void btnPesquisarTipodeUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarTipodeUsuarioActionPerformed
+
+        // Pessquisar tipo de usuario
+        if (textTipodeUsuario.getText().trim().isEmpty()) {
+//            JOptionPane.showMessageDialog(rootPane, "PREENCHA TODOS O CAMPOS!", "", 1);
+            System.out.println("entrou no if de vazio");
+            carregarListaUsuarios();
+
+        } else {
+            try {
+                String aux = textTipodeUsuario.getText();
+                int tipodeusuario = 3;
+                if (aux.equals("professor")) {
+                    tipodeusuario = 0;
+                } else if (aux.equals("administrador")) {
+                    tipodeusuario = 1;
+                } else {
+                    carregarListaUsuarios();
+                }
+                carregarTipoUsuario(tipodeusuario);
+                System.out.println("tipo de usuario" + tipodeusuario);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Entrada invalida!", "", 1);
+            }
+
+        }
+
+    }//GEN-LAST:event_btnPesquisarTipodeUsuarioActionPerformed
+//fim do btn
+
     /**
      * @param args the command line arguments
      */
@@ -378,9 +498,18 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnEditar;
     private javax.swing.JToggleButton btnExcluir;
     private javax.swing.JButton btnGerarRelatorio;
+    private javax.swing.JButton btnPesquisarTipodeUsuario;
     private javax.swing.JToggleButton btnSaibaMais;
     private javax.swing.JLabel jblTitulo;
     private javax.swing.JScrollPane spnListarusuario;
     private javax.swing.JTable tblUsuarios;
+    private javax.swing.JTextField textTipodeUsuario;
     // End of variables declaration//GEN-END:variables
+
+    private void carregarTipoUsuario(int tipodeusuario) {
+        System.out.println("Entrou na funcao");
+        UsuarioController usuarioController = new UsuarioController();
+        DefaultTableModel model = usuarioController.carregarUsuarioPorTipo(tipodeusuario);
+        tblUsuarios.setModel(model);
+    }
 }

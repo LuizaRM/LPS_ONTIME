@@ -5,9 +5,12 @@ import Model.Endereco;
 import Model.Usuario;
 import View.FrCadastrarUsuarioOuProfessor;
 import View.FrEditarUsuarioOuProfessor;
+import View.FrFichaUsuario;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 public class UsuarioController {
+
     int id;
     EnderecoController enderecoController;
     ArrayList<Usuario> lista = new ArrayList<Usuario>();
@@ -38,7 +41,7 @@ public class UsuarioController {
     }
 
     public UsuarioController(int operacao, Usuario user) {
-        
+
         switch (operacao) {
             case 1:
                 //incluir
@@ -60,12 +63,12 @@ public class UsuarioController {
         }
     }
 
-   
     public UsuarioController() {
     }
 
-    public UsuarioController(int i, String value) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public UsuarioController(Usuario user) {
+        FrFichaUsuario telaFichaUsuario = new FrFichaUsuario(user);
+        telaFichaUsuario.setVisible(true);
     }
 
     public void adicionar(String nome, String cpf, String email, String senha, String telefone,
@@ -89,10 +92,10 @@ public class UsuarioController {
         usuarioDao.adicionar(usuario);
     }
 
-    public void editar(Usuario usuario){   
+    public void editar(Usuario usuario) {
         //ele abre a tela e seta os dados
         //Instanciando e setando o DAO
-       
+
         UsuarioDao usuarioDao = new UsuarioDao();
         usuarioDao.editar(usuario);
     }
@@ -117,24 +120,25 @@ public class UsuarioController {
         return objEditar;
     }
 
-    
     public ArrayList<Usuario> getLista() {
         return this.lista;
     }
-public DefaultTableModel carregarUsuarioPorTipo(int tipodeusuario) {
+
+    public DefaultTableModel carregarUsuarioPorTipo(int tipodeusuario) {
+        System.out.println("Controler");
         ArrayList<Usuario> lista = new ArrayList<Usuario>();
         UsuarioDao usuarioDao = new UsuarioDao();
         lista = usuarioDao.consultarPorNivelDeUsuario(tipodeusuario);
-        DefaultTableModel modelo = new DefaultTableModel(new String[] {"#","Tipo de Usuario","Nome","Departamento"},0);
-        for (int i=0;i<lista.size();i++){
-            Object  dados[] = {
+        DefaultTableModel modelo = new DefaultTableModel(new String[]{"Tipo de Usuario", "Nome", "Departamento"}, 0);
+        for (int i = 0; i < lista.size(); i++) {
+            Object dados[] = {
                 lista.get(i).getNivelDeAcesso(),
                 lista.get(i).getNome(),
                 lista.get(i).getDepartamento()};
-        
+
             modelo.addRow(dados);
-                
+
         }
-        return modelo;    
-        }s
+        return modelo;
+    }
 }

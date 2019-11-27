@@ -10,7 +10,35 @@ public class Turma {
     private int semestreTurma;
     private String salaTurma;
     private int periodoTurma;
+    private Disciplina disciplina;
+    private Professor professor;
+    private Curso curso;
 
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
+
+    public Professor getProfessor() {
+        return professor;
+    }
+
+    public void setProfessor(Professor professor) {
+        this.professor = professor;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
+    }
+
+    
     public int getIdTurma() {
         return idTurma;
     }

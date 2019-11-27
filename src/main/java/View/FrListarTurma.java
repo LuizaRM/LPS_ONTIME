@@ -5,9 +5,14 @@
  */
 package View;
 
+import Controller.TurmaController;
+import Model.Turma;
+import Model.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,14 +20,19 @@ import javax.swing.JOptionPane;
  */
 public class FrListarTurma extends javax.swing.JFrame {
 
+    TurmaController turmaController = new TurmaController(4);
+    DefaultTableModel tableModel;
+
     /**
      * Creates new form FrListarUsuarios
      */
     public FrListarTurma() {
         initComponents();
-                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+
+        carregarListaUsuarios();
     }
 
     /**
@@ -35,7 +45,7 @@ public class FrListarTurma extends javax.swing.JFrame {
     private void initComponents() {
 
         spnListarusuario = new javax.swing.JScrollPane();
-        Nome = new javax.swing.JTable();
+        tblTurmas = new javax.swing.JTable();
         btnEditar = new javax.swing.JToggleButton();
         btnExcluir = new javax.swing.JToggleButton();
         btnAdicionar = new javax.swing.JToggleButton();
@@ -45,21 +55,7 @@ public class FrListarTurma extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        Nome.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Matriz curricular", "Nome", "Curso"
-            }
-        ));
-        spnListarusuario.setViewportView(Nome);
-        if (Nome.getColumnModel().getColumnCount() > 0) {
-            Nome.getColumnModel().getColumn(2).setResizable(false);
-        }
+        spnListarusuario.setViewportView(tblTurmas);
 
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -138,33 +134,81 @@ public class FrListarTurma extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void carregarListaUsuarios() {
+        ArrayList<Turma> lista = turmaController.getLista();
+        String[] columnNames = {"idTurma", "nome prof"};
+        tableModel = new DefaultTableModel(columnNames, 0);
+        //idu, nome, cpf, email, senha, telefone, departamento, nivel
+        //ide, rua, numero, complemento, bairro, cidade, estado
+        for (int i = 0; i < lista.size(); i++) {
+            int id = lista.get(i).getIdTurma();
+            String nome = lista.get(i).getProfessor().getUsuario().getNome();
+//            String cpf = lista.get(i).getCpf();
+//            String email = lista.get(i).getEmail();
+//            String senha = lista.get(i).getSenha();
+//            String telefone = lista.get(i).getTelefone();
+//            String departamento = lista.get(i).getDepartamento();
+//            int nivel = lista.get(i).getNivelDeAcesso();
+//
+//            int idE = lista.get(i).getEndereco().getIdEndereco();
+//            String rua = lista.get(i).getEndereco().getRuaEndereco();
+//            String numero = lista.get(i).getEndereco().getNumeroEndereco();
+//            String complemento = lista.get(i).getEndereco().getComplementoEndereco();
+//            String bairro = lista.get(i).getEndereco().getBairroEndereco();
+//            String cidade = lista.get(i).getEndereco().getCidadeEndereco();
+//            String estado = lista.get(i).getEndereco().getEstadoEndereco();
+
+            //System.out.println(tipo + nome + departamento);
+            String[] data = {Integer.toString(id), nome};
+
+            tableModel.addRow(data);
+        }
+        tblTurmas.setModel(tableModel);
+        spnListarusuario.setViewportView(tblTurmas);
+        //deixando na tabela e removendo da visualização
+
+//
+//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(0));
+//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(2 - 1));
+//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(3 - 2));
+//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(4 - 3));
+//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(5 - 4));
+//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(8 - 5));
+//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(9 - 6));
+//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(10 - 7));
+//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(11 - 8));
+//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(12 - 9));
+//        tblUsuarios.removeColumn(tblUsuarios.getColumnModel().getColumn(14 - 10));
+    }
+
+
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         FrAdicionarTurma telaAdicionarTurma2 = new FrAdicionarTurma();
         telaAdicionarTurma2.setVisible(true);
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        FrEditarTurma telaEditarTurma= new FrEditarTurma();
+        FrEditarTurma telaEditarTurma = new FrEditarTurma();
         telaEditarTurma.setVisible(true);
-        
+
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int opcao = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir o horário?");
         // 0=yes, 1=no, 2=cancel
         System.out.println(opcao);
-        
+
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnCancelar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar2ActionPerformed
         this.dispose();
-        
+
     }//GEN-LAST:event_btnCancelar2ActionPerformed
 
     private void btnSaibaMaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaibaMaisActionPerformed
-       FrFichaTurma telaFichaTurma = new FrFichaTurma();
-       telaFichaTurma.setVisible(true);
-        
+        FrFichaTurma telaFichaTurma = new FrFichaTurma();
+        telaFichaTurma.setVisible(true);
+
     }//GEN-LAST:event_btnSaibaMaisActionPerformed
 
     /**
@@ -206,7 +250,6 @@ public class FrListarTurma extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable Nome;
     private javax.swing.JToggleButton btnAdicionar;
     private javax.swing.JButton btnCancelar2;
     private javax.swing.JToggleButton btnEditar;
@@ -214,5 +257,6 @@ public class FrListarTurma extends javax.swing.JFrame {
     private javax.swing.JToggleButton btnSaibaMais;
     private javax.swing.JLabel jblTitulo;
     private javax.swing.JScrollPane spnListarusuario;
+    private javax.swing.JTable tblTurmas;
     // End of variables declaration//GEN-END:variables
 }

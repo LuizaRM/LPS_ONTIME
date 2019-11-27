@@ -5,6 +5,8 @@
  */
 package View;
 
+import Controller.UsuarioController;
+import Model.Usuario;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import javax.swing.JOptionPane;
@@ -18,11 +20,19 @@ public class FrFichaUsuario extends javax.swing.JFrame {
     /**
      * Creates new form JrFichaUsuario
      */
-    public FrFichaUsuario() {
+    public FrFichaUsuario(Usuario usuario) {
         initComponents();
-                Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
         setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+        labNome.setText(usuario.getNome());
+        labDepartamento.setText(usuario.getDepartamento());
+        labEmail.setText(usuario.getEmail());
+        labCpf.setText(usuario.getCpf());
+        labTelefone.setText(usuario.getTelefone());
+        labPEC.setText(usuario.getEndereco().getEstadoEndereco() + " " + usuario.getEndereco().getCidadeEndereco());
+        labBRN.setText(usuario.getEndereco().getBairroEndereco() + " " + usuario.getEndereco().getRuaEndereco() + " " + usuario.getEndereco().getNumeroEndereco());
     }
 
     /**
@@ -49,20 +59,12 @@ public class FrFichaUsuario extends javax.swing.JFrame {
         labTelefone = new javax.swing.JLabel();
         labPEC = new javax.swing.JLabel();
         labBRN = new javax.swing.JLabel();
-        btnEditar = new javax.swing.JToggleButton();
-        btnExcluir = new javax.swing.JToggleButton();
         btnCancelar = new javax.swing.JButton();
-        panTabela = new javax.swing.JPanel();
-        tabHorarioProf = new javax.swing.JScrollPane();
-        tabHorarioProfessor = new javax.swing.JTable();
-        jblTitulo = new javax.swing.JLabel();
         jblTitulo1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panUsuario.setBackground(new java.awt.Color(204, 204, 255));
-
-        jlbIcon.setIcon(new javax.swing.ImageIcon("C:\\Users\\luikt.LAPTOP-S3M3GVQN\\Desktop\\user.png")); // NOI18N
 
         jlbNome.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jlbNome.setText("Nome");
@@ -96,20 +98,6 @@ public class FrFichaUsuario extends javax.swing.JFrame {
 
         labBRN.setText("Centro, Rua Doutor Queiroz, 193");
 
-        btnEditar.setText("Editar");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
-
-        btnExcluir.setText("Excluir");
-        btnExcluir.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnExcluirActionPerformed(evt);
-            }
-        });
-
         btnCancelar.setText("Cancelar");
         btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -122,44 +110,38 @@ public class FrFichaUsuario extends javax.swing.JFrame {
         panUsuarioLayout.setHorizontalGroup(
             panUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panUsuarioLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(panUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panUsuarioLayout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(panUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jlbTelefone)
-                            .addComponent(jlbCPF)
+                        .addComponent(jlbEndereço)
+                        .addGroup(panUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(panUsuarioLayout.createSequentialGroup()
-                                .addComponent(jlbEndereço)
-                                .addGap(10, 10, 10)
-                                .addGroup(panUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(panUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jlbIcon)
-                                        .addComponent(labCpf)
-                                        .addComponent(labTelefone))
-                                    .addGroup(panUsuarioLayout.createSequentialGroup()
-                                        .addGap(19, 19, 19)
-                                        .addGroup(panUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(labBRN)
-                                            .addComponent(labPEC)))))
+                                .addGap(91, 91, 91)
+                                .addComponent(jlbIcon))
                             .addGroup(panUsuarioLayout.createSequentialGroup()
+                                .addGap(37, 37, 37)
                                 .addGroup(panUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jlbDepartamento)
-                                    .addComponent(jlbNome)
-                                    .addComponent(jlbEmail))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(panUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labEmail)
-                                    .addComponent(labNome)
-                                    .addComponent(labDepartamento)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panUsuarioLayout.createSequentialGroup()
-                                .addGap(15, 15, 15)
-                                .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(labBRN)
+                                    .addComponent(labPEC)))))
                     .addGroup(panUsuarioLayout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                        .addGroup(panUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jlbDepartamento)
+                            .addComponent(jlbNome)
+                            .addComponent(jlbEmail)
+                            .addComponent(jlbCPF)
+                            .addComponent(jlbTelefone))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(panUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labTelefone)
+                            .addComponent(labCpf)
+                            .addComponent(labEmail)
+                            .addComponent(labNome)
+                            .addComponent(labDepartamento))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panUsuarioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar)
+                .addContainerGap())
         );
         panUsuarioLayout.setVerticalGroup(
             panUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,50 +174,8 @@ public class FrFichaUsuario extends javax.swing.JFrame {
                     .addComponent(labPEC))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(labBRN)
-                .addGap(82, 82, 82)
-                .addGroup(panUsuarioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEditar)
-                    .addComponent(btnExcluir))
-                .addGap(18, 18, 18)
-                .addComponent(btnCancelar)
-                .addContainerGap(111, Short.MAX_VALUE))
-        );
-
-        tabHorarioProfessor.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
-            },
-            new String [] {
-                "Horario", "Segunda", "Terca", "Quarta", "Quinta", "Sexta", "Sabado", "Domingo"
-            }
-        ));
-        tabHorarioProf.setViewportView(tabHorarioProfessor);
-
-        jblTitulo.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jblTitulo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jblTitulo.setText("Usuário");
-
-        javax.swing.GroupLayout panTabelaLayout = new javax.swing.GroupLayout(panTabela);
-        panTabela.setLayout(panTabelaLayout);
-        panTabelaLayout.setHorizontalGroup(
-            panTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 964, Short.MAX_VALUE)
-            .addGroup(panTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(tabHorarioProf, javax.swing.GroupLayout.DEFAULT_SIZE, 724, Short.MAX_VALUE))
-        );
-        panTabelaLayout.setVerticalGroup(
-            panTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(panTabelaLayout.createSequentialGroup()
-                .addComponent(jblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(panTabelaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panTabelaLayout.createSequentialGroup()
-                    .addContainerGap(49, Short.MAX_VALUE)
-                    .addComponent(tabHorarioProf, javax.swing.GroupLayout.PREFERRED_SIZE, 464, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap()))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 177, Short.MAX_VALUE)
+                .addComponent(btnCancelar))
         );
 
         jblTitulo1.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
@@ -246,40 +186,23 @@ public class FrFichaUsuario extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jblTitulo1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(panUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(panTabela, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 0, 0))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jblTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(5, 5, 5)
                 .addComponent(jblTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(panUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(panTabela, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        //FrEditarUsuarioOuProfessor telaCadastro = new FrEditarUsuarioOuProfessor();
-        //telaCadastro.setVisible(true);
-
-    }//GEN-LAST:event_btnEditarActionPerformed
-
-    private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        int opcao = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir a conta?");
-        // 0=yes, 1=no, 2=cancel
-        System.out.println(opcao);
-
-    }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         // TODO add your handling code here:
@@ -289,44 +212,9 @@ public class FrFichaUsuario extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrFichaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrFichaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrFichaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrFichaUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new FrFichaUsuario().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JToggleButton btnEditar;
-    private javax.swing.JToggleButton btnExcluir;
-    private javax.swing.JLabel jblTitulo;
     private javax.swing.JLabel jblTitulo1;
     private javax.swing.JLabel jlbCPF;
     private javax.swing.JLabel jlbDepartamento;
@@ -342,9 +230,6 @@ public class FrFichaUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel labNome;
     private javax.swing.JLabel labPEC;
     private javax.swing.JLabel labTelefone;
-    private javax.swing.JPanel panTabela;
     private javax.swing.JPanel panUsuario;
-    private javax.swing.JScrollPane tabHorarioProf;
-    private javax.swing.JTable tabHorarioProfessor;
     // End of variables declaration//GEN-END:variables
 }
