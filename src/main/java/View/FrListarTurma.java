@@ -57,6 +57,8 @@ public class FrListarTurma extends javax.swing.JFrame {
         btnSaibaMais = new javax.swing.JToggleButton();
         spnListarTurmas = new javax.swing.JScrollPane();
         tblTurmas = new javax.swing.JTable();
+        textPorAno = new javax.swing.JTextField();
+        btnPesquisarPorAno = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,6 +103,20 @@ public class FrListarTurma extends javax.swing.JFrame {
 
         spnListarTurmas.setViewportView(tblTurmas);
 
+        textPorAno.setText("Pesquise por ano");
+        textPorAno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                textPorAnoActionPerformed(evt);
+            }
+        });
+
+        btnPesquisarPorAno.setText("Pesquisar");
+        btnPesquisarPorAno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPesquisarPorAnoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -115,23 +131,32 @@ public class FrListarTurma extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCancelar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCancelar2, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(80, 80, 80))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(spnListarTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(textPorAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnPesquisarPorAno)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jblTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(80, 80, 80))))
+            .addComponent(spnListarTurmas)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jblTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(6, 6, 6)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(textPorAno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPesquisarPorAno))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(spnListarTurmas, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(73, 73, 73)
+                .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEditar)
                     .addComponent(btnExcluir)
@@ -207,10 +232,20 @@ public class FrListarTurma extends javax.swing.JFrame {
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-        int opcao = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir o horário?");
-        // 0=yes, 1=no, 2=cancel
-        
+       int opcao = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir a conta?");
+        // 0=yes, 1=no, 2=cancel    
         System.out.println(opcao);
+        if (opcao == 0) {
+            int row = tblTurmas.getSelectedRow();
+            String value = tblTurmas.getModel().getValueAt(row, 0).toString();
+            System.out.println("id clicado eh " + value);
+            TurmaController turmaController = new TurmaController();
+            turmaController.excluir(Integer.parseInt(value));
+            this.dispose();
+            FrListarTurma frlist = new FrListarTurma();
+            frlist.setVisible(true);
+
+        }
 
     }//GEN-LAST:event_btnExcluirActionPerformed
 
@@ -259,6 +294,32 @@ public class FrListarTurma extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSaibaMaisActionPerformed
 
+    private void textPorAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textPorAnoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_textPorAnoActionPerformed
+
+    private void btnPesquisarPorAnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPesquisarPorAnoActionPerformed
+
+        // Pessquisar tipo de usuario
+        if (textPorAno.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "PREENCHA TODOS O CAMPOS!", "", 1);
+            System.out.println("entrou no if de vazio");
+            carregarListaUsuarios();
+
+        } else {
+            try {
+                int ano = Integer.parseInt(textPorAno.getText());
+                
+                
+                carregarPorAno(ano);
+                System.out.println("Ano" + ano);
+            } catch (NumberFormatException ex) {
+                JOptionPane.showMessageDialog(rootPane, "Entrada invalida!", "", 1);
+            }
+
+        }
+    }//GEN-LAST:event_btnPesquisarPorAnoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -302,9 +363,17 @@ public class FrListarTurma extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar2;
     private javax.swing.JToggleButton btnEditar;
     private javax.swing.JToggleButton btnExcluir;
+    private javax.swing.JButton btnPesquisarPorAno;
     private javax.swing.JToggleButton btnSaibaMais;
     private javax.swing.JLabel jblTitulo;
     private javax.swing.JScrollPane spnListarTurmas;
     private javax.swing.JTable tblTurmas;
+    private javax.swing.JTextField textPorAno;
     // End of variables declaration//GEN-END:variables
+
+    private void carregarPorAno(int ano) {
+        //System.out.println("Entrou na funcao");
+        TurmaController turmaController = new TurmaController();
+        DefaultTableModel model = turmaController.carregarUsuarioPorTipo(ano);
+        tblTurmas.setModel(model);    }
 }

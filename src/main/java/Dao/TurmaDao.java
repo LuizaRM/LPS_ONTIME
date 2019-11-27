@@ -81,6 +81,29 @@ public class TurmaDao {
         }
     }//fim do excluir
 
+    //excluir Turma
+        public void excluir(int id) {
+        String sql;
+        PreparedStatement ps;
+
+        try {
+
+            sql = "DELETE FROM Turma WHERE idTurma = ?";
+            //sql = "DELETE T1,T2 FROM Usuario AS T1 INNER JOIN Endereco AS T2 ON T1.idEndereco = T2.idEndereco WHERE T1.idUsuario = ?";
+
+            ps = conectar.prepareStatement(sql);
+            ps.setInt(1, id);
+            int rs = ps.executeUpdate();
+            if (rs >= 1) {
+                JOptionPane.showMessageDialog(null, "Turma deletada com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Erro ao deletar Turma!");
+
+            }
+        } catch (SQLException se) {
+            JOptionPane.showMessageDialog(null, "Ocorreu um erro!\n" + se);
+        }
+    } // fim do excluir
     public void alterar(Object obj) {
         String sql;
         PreparedStatement ps;
@@ -239,6 +262,34 @@ public class TurmaDao {
             JOptionPane.showMessageDialog(null, "Ocorreu um erroXAXA!\n" + se);
         }
         return objTurma;
+    }
+
+    public ArrayList<Turma> consultarPorAno(int ano) {
+        ArrayList<Turma> lista = new ArrayList();
+        String sql = "SELECT * FROM Turma WHERE Turma.anoTurma = ?";
+        try {
+
+            conectar = Conexao.conectar();
+            PreparedStatement stmt = conectar.prepareStatement(sql);
+            stmt.setInt(1, ano);
+            stmt.executeQuery();
+            ResultSet rs = stmt.getResultSet();
+
+            while (rs.next()) {
+                Turma turma = new Turma();
+                turma.setAnoTurma(rs.getInt("anoTurma"));
+                turma.setSemestreTurma(rs.getInt("semestreTurma"));
+                turma.setPeriodoTurma(rs.getInt("periodoTurma"));
+                turma.setIdDisciplina(rs.getInt("idDisciplina"));
+                turma.setIdProfessor(rs.getInt("idProfessor"));
+
+                lista.add(turma);
+            }
+            rs.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, ex);
+        }
+        return lista;
     }
 
 }

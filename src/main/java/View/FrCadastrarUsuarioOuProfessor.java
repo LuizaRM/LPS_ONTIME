@@ -167,8 +167,6 @@ public class FrCadastrarUsuarioOuProfessor extends javax.swing.JFrame {
 
         jlbSenha.setText("Senha");
 
-        edtCPF.setText("   .   .   -  ");
-
         edtTelefone.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 edtTelefoneActionPerformed(evt);
@@ -379,7 +377,7 @@ public class FrCadastrarUsuarioOuProfessor extends javax.swing.JFrame {
         if (nome.isEmpty()) {
             msgErro += "Nome não informado\n";
         }
-        if (cpf.isEmpty()) {
+        if (cpf.isEmpty()||cpf.equals("   .   .   -  ")) {
             msgErro += "CPF não informado\n";
         }
         if (email.isEmpty()) {

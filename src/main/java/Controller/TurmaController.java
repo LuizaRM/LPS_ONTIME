@@ -12,6 +12,7 @@ import View.FrFichaTurma;
 import static com.sun.org.apache.xalan.internal.xsltc.compiler.util.Type.String;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.table.DefaultTableModel;
 
 public class TurmaController {
 
@@ -54,8 +55,6 @@ public class TurmaController {
         return this.lista;
     }
 
- 
-
     public void getDadosCurso() {
         TurmaDao turmaDao = new TurmaDao();
         this.listaCurso = turmaDao.getDadosCurso();
@@ -83,7 +82,7 @@ public class TurmaController {
         TurmaDao turmaDao = new TurmaDao();
         this.listaProfessor = turmaDao.getDadosProfessor();
     }
-    
+
     public void setListaProfessor(ArrayList<Professor> listaProfessor) {
         this.listaProfessor = listaProfessor;
     }
@@ -104,11 +103,35 @@ public class TurmaController {
 
     public void adicionar(String disciplina, String curso, String professor, String ano, String semestre, String periodo, List<String> segunda, List<String> terca, List<String> quarta, List<String> quinta, List<String> sexta, String sala) {
         //não foi usado um modelo devido a diversidade dos dados(futuro)
-        
-       
+
         //Instanciando e setando o DAO
         TurmaDao turmaDao = new TurmaDao();
         turmaDao.adicionar(disciplina, curso, professor, ano, semestre, periodo, segunda, terca, quarta, quinta, sexta, sala);
+    }
+
+    public DefaultTableModel carregarUsuarioPorTipo(int ano) {
+        System.out.println("Controler");
+        ArrayList<Turma> lista = new ArrayList<Turma>();
+        TurmaDao turmaDao = new TurmaDao();
+        lista = turmaDao.consultarPorAno(ano);
+        DefaultTableModel modelo = new DefaultTableModel(new String[]{"Ano", "Semestre", "Periodo", "Disciplina", "Professor"}, 0);
+        for (int i = 0; i < lista.size(); i++) {
+            Object dados[] = {
+                lista.get(i).getAnoTurma(),
+                lista.get(i).getSemestreTurma(),
+                lista.get(i).getPeriodoTurma(),
+                lista.get(i).getIdDisciplina(),
+                lista.get(i).getIdProfessor()};
+
+            modelo.addRow(dados);
+
+        }
+        return modelo;
+    }
+
+    public void excluir(int id) {
+        TurmaDao turmaDao = new TurmaDao();
+        turmaDao.excluir(id);
     }
 
 }

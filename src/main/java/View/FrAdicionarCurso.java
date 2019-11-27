@@ -175,7 +175,6 @@ public class FrAdicionarCurso extends javax.swing.JFrame {
         return msgErro;
     }
 
- 
 
     private void btnCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarUsuarioActionPerformed
         String msgErro = this.validaCampos();
@@ -190,7 +189,7 @@ public class FrAdicionarCurso extends javax.swing.JFrame {
 
     private void jTabbedPane1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MousePressed
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_jTabbedPane1MousePressed
 
     /**
@@ -238,7 +237,10 @@ public class FrAdicionarCurso extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FrAdicionarCurso().setVisible(true);
+                FrStart start = new FrStart();
+                start.setVisible(true);
+              //new FrAdicionarCurso().setVisible(true);
+                       
             }
         });
     }

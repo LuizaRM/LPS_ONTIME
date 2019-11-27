@@ -523,13 +523,13 @@ public class FrEditarUsuarioOuProfessor extends javax.swing.JFrame {
          // TODO add your handling code here:
     }//GEN-LAST:event_btnCadastrarUsuarioActionPerformed
 
-    private void edtLoginIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtLoginIdActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtLoginIdActionPerformed
-
     private void edtLoginUActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtLoginUActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_edtLoginUActionPerformed
+
+    private void edtLoginIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtLoginIdActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_edtLoginIdActionPerformed
 
     /**
      * @param args the command line arguments
