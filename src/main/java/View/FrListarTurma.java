@@ -13,17 +13,26 @@ import Model.Endereco;
 import Model.Professor;
 import Model.Turma;
 import Model.Usuario;
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import relatorio.Relatorio;
 
 /**
  *
  * @author luikt
  */
 public class FrListarTurma extends javax.swing.JFrame {
+
+    ArrayList<Auxiliar> pdf = new ArrayList<>();
 
     TurmaController turmaController = new TurmaController(4);
     DefaultTableModel tableModel;
@@ -35,7 +44,7 @@ public class FrListarTurma extends javax.swing.JFrame {
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 
         carregarListaUsuarios();
     }
@@ -59,8 +68,9 @@ public class FrListarTurma extends javax.swing.JFrame {
         tblTurmas = new javax.swing.JTable();
         textPorAno = new javax.swing.JTextField();
         btnPesquisarPorAno = new javax.swing.JButton();
+        btnCancelar3 = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         btnEditar.setText("Editar");
         btnEditar.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +127,13 @@ public class FrListarTurma extends javax.swing.JFrame {
             }
         });
 
+        btnCancelar3.setText("Cancelar");
+        btnCancelar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelar3ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -124,14 +141,16 @@ public class FrListarTurma extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(21, 21, 21)
                 .addComponent(btnSaibaMais, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(464, 464, 464)
+                .addGap(360, 360, 360)
+                .addComponent(btnCancelar3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnAdicionar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnCancelar2, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE)
+                .addComponent(btnCancelar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -162,7 +181,8 @@ public class FrListarTurma extends javax.swing.JFrame {
                     .addComponent(btnExcluir)
                     .addComponent(btnAdicionar)
                     .addComponent(btnCancelar2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSaibaMais))
+                    .addComponent(btnSaibaMais)
+                    .addComponent(btnCancelar3))
                 .addGap(12, 12, 12))
         );
 
@@ -175,12 +195,12 @@ public class FrListarTurma extends javax.swing.JFrame {
             "nomeDisciplina", "nomeCurso", "nomeProfessor",
             "anoTurma", "salaTurma", "semestreTurma", "periodoTurma",};
         tableModel = new DefaultTableModel(columnNames, 0);
-        System.out.println("lista size = " + lista.size());
+        
         for (int i = 0; i < lista.size(); i++) {
             //professor
             int idP = lista.get(i).getProfessor().getId();
             String nomeP = lista.get(i).getProfessor().getUsuario().getNome();
-            System.out.println("o id ehhhhhh" + idP);
+           
             //disciplina
             int idD = lista.get(i).getDisciplina().getIdDisciplina();
             String nomeD = lista.get(i).getDisciplina().getNomeDisciplina();
@@ -220,25 +240,24 @@ public class FrListarTurma extends javax.swing.JFrame {
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
         this.dispose();
         TurmaController turmaController = new TurmaController(1);
-        
-      
-        
+
+
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
     private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        FrEditarTurma telaEditarTurma = new FrEditarTurma();
-        telaEditarTurma.setVisible(true);
+        //FrEditarTurma telaEditarTurma = new FrEditarTurma();
+        //telaEditarTurma.setVisible(true);
 
     }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
-       int opcao = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir a conta?");
+        int opcao = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir a conta?");
         // 0=yes, 1=no, 2=cancel    
-        System.out.println(opcao);
+       
         if (opcao == 0) {
             int row = tblTurmas.getSelectedRow();
             String value = tblTurmas.getModel().getValueAt(row, 0).toString();
-            System.out.println("id clicado eh " + value);
+            
             TurmaController turmaController = new TurmaController();
             turmaController.excluir(Integer.parseInt(value));
             this.dispose();
@@ -272,7 +291,7 @@ public class FrListarTurma extends javax.swing.JFrame {
 
         String nomeP = tblTurmas.getModel().getValueAt(row, 6).toString();
         Professor p = new Professor();
-        
+
         Usuario u = new Usuario();
         u.setNome(nomeP);
         p.setUsuario(u);
@@ -303,16 +322,15 @@ public class FrListarTurma extends javax.swing.JFrame {
         // Pessquisar tipo de usuario
         if (textPorAno.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "PREENCHA TODOS O CAMPOS!", "", 1);
-            System.out.println("entrou no if de vazio");
+            
             carregarListaUsuarios();
 
         } else {
             try {
                 int ano = Integer.parseInt(textPorAno.getText());
-                
-                
+
                 carregarPorAno(ano);
-                System.out.println("Ano" + ano);
+                
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Entrada invalida!", "", 1);
             }
@@ -320,10 +338,14 @@ public class FrListarTurma extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnPesquisarPorAnoActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
+    private void btnCancelar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelar3ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnCancelar3ActionPerformed
+
+/**
+ * @param args the command line arguments
+ */
+public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -337,13 +359,33 @@ public class FrListarTurma extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FrListarTurma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrListarTurma
+
+.class  
+
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FrListarTurma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrListarTurma
+
+.class  
+
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FrListarTurma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrListarTurma
+
+.class  
+
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FrListarTurma.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FrListarTurma
+
+.class  
+
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -361,6 +403,7 @@ public class FrListarTurma extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JToggleButton btnAdicionar;
     private javax.swing.JButton btnCancelar2;
+    private javax.swing.JButton btnCancelar3;
     private javax.swing.JToggleButton btnEditar;
     private javax.swing.JToggleButton btnExcluir;
     private javax.swing.JButton btnPesquisarPorAno;
@@ -372,8 +415,31 @@ public class FrListarTurma extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void carregarPorAno(int ano) {
-        //System.out.println("Entrou na funcao");
+        
         TurmaController turmaController = new TurmaController();
         DefaultTableModel model = turmaController.carregarUsuarioPorTipo(ano);
-        tblTurmas.setModel(model);    }
+        tblTurmas.setModel(model);
+        pdf.clear();
+        for (int count = 0; count < model.getRowCount(); count++) {
+            Auxiliar aux = new Auxiliar();
+            aux.setDisciplina(model.getValueAt(count, 3).toString()); //ok
+//            aux.setCurso(model.getValueAt(count, 2).toString());
+            aux.setProfessor(model.getValueAt(count, 4).toString()); //ok
+            aux.setAnoTurma(model.getValueAt(count, 0).toString()); //ok
+
+            pdf.add(aux);
+        }
+        Relatorio relatorio = new Relatorio();
+        try {
+            relatorio.gerarRelatorioTurma(pdf);
+        } catch (JRException ex) {
+            Logger.getLogger(FrListarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(FrListarUsuarios.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        
+        
+    }
 }

@@ -55,7 +55,10 @@ public class UsuarioDao {
         PreparedStatement ps;
 
         try {
-
+            //evitar verificação de chave estrangeira
+            PreparedStatement teste = conectar.prepareStatement("SET FOREIGN_KEY_CHECKS=0");
+            teste.execute();
+            
             //sql = "DELETE FROM Usuario, Endereco WHERE Usuario.idUsuario = ? AND Endereco.idEndereco = Usuario.idEndereco";
             sql = "DELETE T1,T2 FROM Usuario AS T1 INNER JOIN Endereco AS T2 ON T1.idEndereco = T2.idEndereco WHERE T1.idUsuario = ?";
 

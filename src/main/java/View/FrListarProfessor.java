@@ -154,7 +154,7 @@ public class FrListarProfessor extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int opcao = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir a conta?");
         // 0=yes, 1=no, 2=cancel
-        System.out.println(opcao);
+       
         
     }//GEN-LAST:event_btnExcluirActionPerformed
 

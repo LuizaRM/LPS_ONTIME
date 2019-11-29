@@ -2,7 +2,7 @@
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6d13a52e-4f60-4403-b0f2-bb77b0937664">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="56"/>
 	<field name="nome" class="java.lang.String"/>
 	<field name="cpf" class="java.lang.String"/>
 	<field name="email" class="java.lang.String"/>
@@ -15,7 +15,7 @@
 	<title>
 		<band height="79" splitType="Stretch">
 			<staticText>
-				<reportElement x="208" y="26" width="203" height="34" uuid="0857334a-1064-4417-bae3-f53d98127f8e"/>
+				<reportElement x="192" y="25" width="203" height="34" uuid="0857334a-1064-4417-bae3-f53d98127f8e"/>
 				<textElement>
 					<font size="20"/>
 				</textElement>

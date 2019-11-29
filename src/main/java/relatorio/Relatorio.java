@@ -4,8 +4,10 @@
  * and open the template in the editor.
  */
 package relatorio;
+import Model.Turma;
 import java.awt.List;
 import Model.Usuario;
+import View.Auxiliar;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -31,5 +33,15 @@ public class Relatorio {
         JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(lista));
         JasperViewer.viewReport(print, false); //fechar apenas a aplicacao, sem fechar a aplicacao
         
+    }
+
+    public void gerarRelatorioTurma(ArrayList<Auxiliar> lista) throws FileNotFoundException, JRException {
+        InputStream fonte;
+//        fonte = Relatorio.class.getResourceAsStream("report/relatorio.jrxml");
+        InputStream is = new FileInputStream("C:\\Users\\luikt.LAPTOP-S3M3GVQN\\Documents\\NetBeansProjects\\OntimeNew\\src\\main\\java\\report\\relatorio-turma.jrxml");
+
+        JasperReport report = JasperCompileManager.compileReport(is);
+        JasperPrint print = JasperFillManager.fillReport(report, null, new JRBeanCollectionDataSource(lista));
+        JasperViewer.viewReport(print, false); //fechar apenas a aplicacao, sem fechar a aplicacao
     }
 }

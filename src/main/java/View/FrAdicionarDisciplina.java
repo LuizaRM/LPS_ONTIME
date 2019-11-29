@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.DisciplinaController;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.List;
@@ -17,10 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class FrAdicionarDisciplina extends javax.swing.JFrame {
 //    private DefaultListModel lista = new DefaltListModel();
-
-    /**
-     * Creates new form FrAdicionarHorario
-     */
+    DisciplinaController disciplinaController = new DisciplinaController();
     public FrAdicionarDisciplina() {
 //TELA CHEIA 
 //this.setExtendedState(MAXIMIZED_BOTH);   
@@ -29,7 +27,6 @@ public class FrAdicionarDisciplina extends javax.swing.JFrame {
         //para iniciar a tela no meio da tela
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 
     }
 
@@ -49,7 +46,7 @@ public class FrAdicionarDisciplina extends javax.swing.JFrame {
         edtCargaHoraria = new javax.swing.JTextField();
         jlbTurma1 = new javax.swing.JLabel();
         edtCodigo = new javax.swing.JTextField();
-        jTextField1 = new javax.swing.JTextField();
+        edtNome = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         listPreRequisitos = new javax.swing.JList<>();
@@ -57,7 +54,7 @@ public class FrAdicionarDisciplina extends javax.swing.JFrame {
         btnCancelar = new javax.swing.JButton();
         btnCadastrarUsuario = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -71,9 +68,9 @@ public class FrAdicionarDisciplina extends javax.swing.JFrame {
 
         jlbTurma1.setText("Codigo");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        edtNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                edtNomeActionPerformed(evt);
             }
         });
 
@@ -89,8 +86,8 @@ public class FrAdicionarDisciplina extends javax.swing.JFrame {
                     .addComponent(edtCargaHoraria)
                     .addComponent(jlbTurma1)
                     .addComponent(jlbNome)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE))
-                .addContainerGap(242, Short.MAX_VALUE))
+                    .addComponent(edtNome, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE))
+                .addContainerGap(206, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -102,7 +99,7 @@ public class FrAdicionarDisciplina extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbNome)
                 .addGap(4, 4, 4)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jlbTurma)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -124,7 +121,7 @@ public class FrAdicionarDisciplina extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 552, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 516, Short.MAX_VALUE)
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -163,9 +160,7 @@ public class FrAdicionarDisciplina extends javax.swing.JFrame {
                     .addComponent(btnCadastrarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jTabbedPane1)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -232,8 +227,15 @@ public class FrAdicionarDisciplina extends javax.swing.JFrame {
     }
 
     private void btnCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarUsuarioActionPerformed
-        String msgErro = this.validaCampos();
-        JOptionPane.showMessageDialog(this, msgErro);
+        //String msgErro = this.validaCampos();
+        //JOptionPane.showMessageDialog(this, msgErro);
+        
+        String codigo = edtCodigo.getText();
+        String nome = edtNome.getText();
+        String cargaHoraria = edtCargaHoraria.getText();
+        disciplinaController.adicionar(codigo,nome,cargaHoraria);
+        
+        
 
     }//GEN-LAST:event_btnCadastrarUsuarioActionPerformed
 
@@ -254,15 +256,15 @@ public class FrAdicionarDisciplina extends javax.swing.JFrame {
 
         for (int i = 0; i < selectedIx.length; i++) {
             sel = listPreRequisitos.getModel().getElementAt(selectedIx[i]);
-            System.out.println("o selecionado eh" + sel);
+            
 
         }
 
     }//GEN-LAST:event_listPreRequisitosMousePressed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void edtNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtNomeActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_edtNomeActionPerformed
 
     /**
      * @param args the command line arguments
@@ -311,11 +313,11 @@ public class FrAdicionarDisciplina extends javax.swing.JFrame {
     private javax.swing.JButton btnCancelar;
     private javax.swing.JTextField edtCargaHoraria;
     private javax.swing.JTextField edtCodigo;
+    private javax.swing.JTextField edtNome;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel jblTitulo;
     private javax.swing.JLabel jlbNome;
     private javax.swing.JLabel jlbTurma;

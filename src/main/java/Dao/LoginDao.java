@@ -2,6 +2,7 @@ package Dao;
 
 import View.FrInicioAdm;
 import View.FrInicioProfessor;
+import View.FrLogin;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -45,6 +46,8 @@ public class LoginDao {
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Login ou senha inválidos");
+                FrLogin frlogin = new FrLogin();
+                frlogin.setVisible(true);
 
             }
         } catch (SQLException se) {

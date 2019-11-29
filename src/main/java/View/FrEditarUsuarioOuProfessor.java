@@ -29,7 +29,7 @@ public class FrEditarUsuarioOuProfessor extends javax.swing.JFrame {
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+       
 
         buttonGroup1.add(rbtNivel2Prof);
         buttonGroup1.add(rbtNivel1Admin);
@@ -401,7 +401,7 @@ public class FrEditarUsuarioOuProfessor extends javax.swing.JFrame {
         Usuario user = new Usuario();
         user.setIdUsuario(Integer.parseInt(edtLoginId.getText()));
         user.setNome(edtNome.getText());
-        System.out.println("name is" + user.getNome());
+        
         user.setCpf(edtCPF.getText());
         user.setEmail(edtEmail.getText());
         user.setSenha(edtSenha.getText());
@@ -425,7 +425,7 @@ public class FrEditarUsuarioOuProfessor extends javax.swing.JFrame {
         aux.setComplementoEndereco(edtComplemento.getText());
 
         user.setEndereco(aux);
-        System.out.println(user.getNome() + "nome aqui");
+       
         //Dados do login do usuário
         if (edtNome.getText().isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos!", "", 1);

@@ -16,7 +16,7 @@ public class Conexao {
         try {
             Class.forName("com.mysql.jdbc.Driver");
 
-            //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ontime", "root", "");
+           
             conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/ontime","root",""); 
         } catch (SQLException se) {
             JOptionPane.showMessageDialog(null, "Erro de Conexão!\n" + se);

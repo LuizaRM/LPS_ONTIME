@@ -25,7 +25,7 @@ public class FrInicioAdm extends javax.swing.JFrame {
         initComponents();
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+     
         //teste de integracao 
         
     }
@@ -76,6 +76,8 @@ public class FrInicioAdm extends javax.swing.JFrame {
         mniNovaDisciplina = new javax.swing.JMenuItem();
         mniListarDisciplinas = new javax.swing.JMenuItem();
         mnuCurso = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -324,6 +326,23 @@ public class FrInicioAdm extends javax.swing.JFrame {
                 mnuCursoActionPerformed(evt);
             }
         });
+
+        jMenuItem1.setText("Novo Curso");
+        jMenuItem1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem1MousePressed(evt);
+            }
+        });
+        mnuCurso.add(jMenuItem1);
+
+        jMenuItem2.setText("Cursos");
+        jMenuItem2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jMenuItem2MousePressed(evt);
+            }
+        });
+        mnuCurso.add(jMenuItem2);
+
         jMenuBar1.add(mnuCurso);
 
         setJMenuBar(jMenuBar1);
@@ -366,7 +385,7 @@ public class FrInicioAdm extends javax.swing.JFrame {
     private void mniExcluirContaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniExcluirContaActionPerformed
         int opcao = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir a conta?");
         // 0=yes, 1=no, 2=cancel
-        System.out.println(opcao);
+        
     }//GEN-LAST:event_mniExcluirContaActionPerformed
 
     private void mniTrocarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniTrocarSenhaActionPerformed
@@ -380,7 +399,7 @@ public class FrInicioAdm extends javax.swing.JFrame {
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
         // 0=ok, 2=cancel
-        System.out.println(opcao);
+      
     }//GEN-LAST:event_mniSairActionPerformed
 
     private void mniListarUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniListarUsuariosActionPerformed
@@ -431,9 +450,19 @@ public class FrInicioAdm extends javax.swing.JFrame {
     }//GEN-LAST:event_mniListarProfessoresActionPerformed
 
     private void mnuCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuCursoActionPerformed
-       FrAdicionarCurso adicionarCurso = new FrAdicionarCurso();
-        adicionarCurso.setVisible(true);
+       
     }//GEN-LAST:event_mnuCursoActionPerformed
+
+    private void jMenuItem1MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem1MousePressed
+        FrAdicionarCurso adicionarCurso = new FrAdicionarCurso();
+        adicionarCurso.setVisible(true);
+    }//GEN-LAST:event_jMenuItem1MousePressed
+
+    private void jMenuItem2MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMenuItem2MousePressed
+        // TODO add your handling code here:
+        FrListarCurso listarCurso = new FrListarCurso();
+        listarCurso.setVisible(true);
+    }//GEN-LAST:event_jMenuItem2MousePressed
 
     /**
      * @param args the command line arguments
@@ -473,6 +502,8 @@ public class FrInicioAdm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JLabel jlbCPF;
     private javax.swing.JLabel jlbDepartamento;
     private javax.swing.JLabel jlbEmail;

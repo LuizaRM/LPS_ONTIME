@@ -40,7 +40,7 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+       
 
         carregarListaUsuarios();
     }
@@ -69,7 +69,7 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
             String cidade = lista.get(i).getEndereco().getCidadeEndereco();
             String estado = lista.get(i).getEndereco().getEstadoEndereco();
 
-            //System.out.println(tipo + nome + departamento);
+          
             String[] data = {Integer.toString(id), nome, cpf, email, senha, telefone, departamento, Integer.toString(nivel), Integer.toString(idE), rua, numero, complemento, bairro, cidade, estado};
 
             tableModel.addRow(data);
@@ -113,7 +113,7 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
         btnPesquisarTipodeUsuario = new javax.swing.JButton();
         textTipodeUsuario = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         spnListarusuario.setViewportView(tblUsuarios);
 
@@ -300,7 +300,7 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
 
         user.setEndereco(address);
 
-        System.out.println("id clicado eh " + idUsuario);
+       
         usuarioController = new UsuarioController(2, user);
 
         this.dispose();
@@ -366,7 +366,7 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
 
         user.setEndereco(address);
 
-        System.out.println("id clicado eh " + idUsuario);
+       
 
         UsuarioController usuarioController = new UsuarioController(user);
 
@@ -375,11 +375,11 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int opcao = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir a conta?");
         // 0=yes, 1=no, 2=cancel    
-        System.out.println(opcao);
+        
         if (opcao == 0) {
             int row = tblUsuarios.getSelectedRow();
             String value = tblUsuarios.getModel().getValueAt(row, 0).toString();
-            System.out.println("id clicado eh " + value);
+           
             UsuarioController usuarioController = new UsuarioController();
             usuarioController.excluir(Integer.parseInt(value));
             this.dispose();
@@ -432,7 +432,6 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
         // Pessquisar tipo de usuario
         if (textTipodeUsuario.getText().trim().isEmpty()) {
 //            JOptionPane.showMessageDialog(rootPane, "PREENCHA TODOS O CAMPOS!", "", 1);
-            System.out.println("entrou no if de vazio");
             carregarListaUsuarios();
 
         } else {
@@ -447,7 +446,7 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
                     carregarListaUsuarios();
                 }
                 carregarTipoUsuario(tipodeusuario);
-                System.out.println("tipo de usuario" + tipodeusuario);
+                
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(rootPane, "Entrada invalida!", "", 1);
             }
@@ -507,7 +506,7 @@ public final class FrListarUsuarios extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void carregarTipoUsuario(int tipodeusuario) {
-        System.out.println("Entrou na funcao");
+        
         UsuarioController usuarioController = new UsuarioController();
         DefaultTableModel model = usuarioController.carregarUsuarioPorTipo(tipodeusuario);
         tblUsuarios.setModel(model);

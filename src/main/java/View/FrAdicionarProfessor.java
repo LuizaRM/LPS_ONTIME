@@ -22,7 +22,6 @@ public class FrAdicionarProfessor extends javax.swing.JFrame {
         initComponents();
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        setDefaultCloseOperation(this.EXIT_ON_CLOSE);
     }
 
     /**

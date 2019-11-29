@@ -33,8 +33,6 @@ public class TurmaDao {
             teste.execute();
             sql = "INSERT INTO Turma(idDisciplina, idProfessor, idCurso, anoTurma,"
                     + " semestreTurma, salaTurma, periodoTurma) VALUES(?,?,?,?,?,?,?)";
-//String disciplina, String curso, String professor, String ano, String semestre, String periodo,
-//List<String> segunda, List<String> terca, List<String> quarta, List<String> quinta, List<String> sexta
 
             ps = conectar.prepareStatement(sql);
             ps.setInt(1, Integer.parseInt(disciplina));
@@ -57,30 +55,7 @@ public class TurmaDao {
         }
     }
 
-    public void excluir(Object obj) {
-        String sql;
-        PreparedStatement ps;
-        Turma turma = (Turma) obj;
-
-        try {
-
-            sql = "DELETE FROM Turma WHERE idTurma = ?";
-
-            ps = conectar.prepareStatement(sql);
-            ps.setInt(1, turma.getIdTurma());
-            ResultSet rs = ps.executeQuery();
-
-            if (rs.first()) {
-                JOptionPane.showMessageDialog(null, "Turma deletada com sucesso!");
-            } else {
-                JOptionPane.showMessageDialog(null, "Erro ao deletar Turma!");
-
-            }
-        } catch (SQLException se) {
-            JOptionPane.showMessageDialog(null, "Ocorreu um erro!\n" + se);
-        }
-    }//fim do excluir
-
+    
     //excluir Turma
         public void excluir(int id) {
         String sql;
@@ -89,7 +64,7 @@ public class TurmaDao {
         try {
 
             sql = "DELETE FROM Turma WHERE idTurma = ?";
-            //sql = "DELETE T1,T2 FROM Usuario AS T1 INNER JOIN Endereco AS T2 ON T1.idEndereco = T2.idEndereco WHERE T1.idUsuario = ?";
+            
 
             ps = conectar.prepareStatement(sql);
             ps.setInt(1, id);
@@ -152,6 +127,7 @@ public class TurmaDao {
             while (rs.next()) {
                 Curso curso = new Curso();
                 curso.setId(rs.getInt("idCurso"));
+                curso.setNome(rs.getString("nomeCurso"));
                 objCurso.add(curso);
             }
 
@@ -175,8 +151,10 @@ public class TurmaDao {
 
             while (rs.next()) {
                 Professor p = new Professor();
+                Usuario u = new Usuario();
                 p.setId(rs.getInt("p.idProfessor"));
-                System.out.println("idkdokdkodadok aquii ale " + p.getId());
+                u.setNome(rs.getString("u.nomeUsuario"));
+                p.setUsuario(u);
                 objProfessor.add(p);
             }
 
@@ -193,13 +171,14 @@ public class TurmaDao {
 
         try {
             sql = "SELECT * FROM Disciplina";
-            //"idTurma", "anoTurma", "semestreTurma", "salaTurma", "periodoTurma", "nomeDisciplina", "nomeCurso"};
+           
 
             ps = conectar.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 Disciplina disciplina = new Disciplina();
+                disciplina.setNomeDisciplina(rs.getString("nomeDisciplina"));
                 disciplina.setIdDisciplina(rs.getInt("idDisciplina"));
                 objDisciplina.add(disciplina);
             }
@@ -221,13 +200,13 @@ public class TurmaDao {
                     + " AND t.idProfessor = p.idProfessor"
                     + " AND t.idCurso = c.idCurso"
                     + " AND p.idUsuario = u.idUsuario";
-            //"idTurma", "anoTurma", "semestreTurma", "salaTurma", "periodoTurma", "nomeDisciplina", "nomeCurso"};
+            
 
             ps = conectar.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                System.out.println("começou");
+                
                 Turma turma = new Turma();
                 turma.setIdTurma(rs.getInt("t.idTurma"));
                 turma.setAnoTurma(rs.getInt("t.anoTurma"));
@@ -248,7 +227,7 @@ public class TurmaDao {
                 p.setId(rs.getInt("p.idProfessor"));
                 p.setUsuario(u);
                 turma.setProfessor(p);
-                System.out.println("o id daquiiiiiiiii" + p.getId());
+                
 
                 Curso c = new Curso();
                 c.setId(rs.getInt("c.idCurso"));
@@ -266,7 +245,7 @@ public class TurmaDao {
 
     public ArrayList<Turma> consultarPorAno(int ano) {
         ArrayList<Turma> lista = new ArrayList();
-        String sql = "SELECT * FROM Turma WHERE Turma.anoTurma = ?";
+        String sql = "SELECT * FROM Turma t, Professor p, Disciplina d, Usuario u  WHERE u.idUsuario = p.idUsuario AND t.anoTurma = ? AND t.idProfessor = p.idProfessor AND t.idDisciplina = d.idDisciplina";
         try {
 
             conectar = Conexao.conectar();
@@ -277,11 +256,19 @@ public class TurmaDao {
 
             while (rs.next()) {
                 Turma turma = new Turma();
-                turma.setAnoTurma(rs.getInt("anoTurma"));
-                turma.setSemestreTurma(rs.getInt("semestreTurma"));
-                turma.setPeriodoTurma(rs.getInt("periodoTurma"));
-                turma.setIdDisciplina(rs.getInt("idDisciplina"));
-                turma.setIdProfessor(rs.getInt("idProfessor"));
+                turma.setAnoTurma(rs.getInt("t.anoTurma"));
+                turma.setSemestreTurma(rs.getInt("t.semestreTurma"));
+                turma.setPeriodoTurma(rs.getInt("t.periodoTurma"));
+                Disciplina d = new Disciplina();
+                d.setNomeDisciplina(rs.getString("d.nomeDisciplina"));
+                turma.setDisciplina(d);
+                
+                Professor p = new Professor();
+                Usuario u = new Usuario();
+                u.setNome(rs.getString("u.nomeUsuario"));
+                p.setUsuario(u);
+                
+                turma.setProfessor(p);
 
                 lista.add(turma);
             }

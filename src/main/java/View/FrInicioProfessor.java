@@ -22,7 +22,7 @@ public class FrInicioProfessor extends javax.swing.JFrame {
         initComponents();
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+      
     }
 
     /**
@@ -383,7 +383,7 @@ public class FrInicioProfessor extends javax.swing.JFrame {
         
         int opcao = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir a conta?");
         // 0=yes, 1=no, 2=cancel
-        System.out.println(opcao);
+       
                 
 
     }//GEN-LAST:event_mniExcluirContaActionPerformed
@@ -398,7 +398,7 @@ public class FrInicioProfessor extends javax.swing.JFrame {
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 
         // 0=ok, 2=cancel
-        System.out.println(opcao);
+        
     }//GEN-LAST:event_mniSairActionPerformed
 
     private void mniTrocarSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mniTrocarSenhaActionPerformed

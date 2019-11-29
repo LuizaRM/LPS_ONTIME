@@ -47,16 +47,16 @@ public class DisciplinaDao {
 
         try {
 
-            sql = "INSERT INTO Disciplina(idDisciplina, nomeDisciplina, cargaHorariaDisciplina, codigoDisciplina,"
-                    + " VALUES(?,?,?,?)";
+            sql = "INSERT INTO Disciplina( nomeDisciplina, cargaHorariaDisciplina, codigoDisciplina,"
+                    + " VALUES(?,?,?)";
 
             ps = conectar.prepareStatement(sql);
             
             
-            ps.setInt(1, disciplina.getIdDisciplina());
-            ps.setString(2, disciplina.getNomeDisciplina());
-            ps.setString(3, disciplina.getCargaHorariaDisciplina());
-            ps.setString(4, disciplina.getCodigoDisciplina());
+           
+            ps.setString(1, disciplina.getNomeDisciplina());
+            ps.setString(2, disciplina.getCargaHorariaDisciplina());
+            ps.setString(3, disciplina.getCodigoDisciplina());
           
             ResultSet rs = ps.executeQuery();
 
@@ -128,9 +128,6 @@ public class DisciplinaDao {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    //QUEO APAGAR ISSO AQUI 
-//    public void adicionar(Object obj) {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
+    
 
 }

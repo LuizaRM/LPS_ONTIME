@@ -81,7 +81,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="btnUsuario">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Us&#xfa;ario"/>
+        <Property name="text" type="java.lang.String" value="Usu&#xe1;rio"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnUsuarioActionPerformed"/>

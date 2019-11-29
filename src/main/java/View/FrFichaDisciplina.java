@@ -234,7 +234,6 @@ public class FrFichaDisciplina extends javax.swing.JFrame {
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
         int opcao = JOptionPane.showConfirmDialog(null, "Realmente deseja excluir o horário?");
         // 0=yes, 1=no, 2=cancel
-        System.out.println(opcao);
 
     }//GEN-LAST:event_btnExcluirActionPerformed
 

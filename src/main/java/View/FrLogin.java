@@ -23,6 +23,7 @@ public class FrLogin extends javax.swing.JDialog {
      * Creates new form FrLogin
      */
     public FrLogin() {
+        
         initComponents();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
@@ -45,7 +46,7 @@ public class FrLogin extends javax.swing.JDialog {
         edtLogin = new javax.swing.JTextField();
         btnEsqueciMinhaSenha = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        edtSenha = new javax.swing.JTextField();
+        edtSenha = new javax.swing.JPasswordField();
         jMenuBar1 = new javax.swing.JMenuBar();
         mnuInicio = new javax.swing.JMenu();
 
@@ -86,12 +87,6 @@ public class FrLogin extends javax.swing.JDialog {
             }
         });
 
-        edtSenha.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                edtSenhaActionPerformed(evt);
-            }
-        });
-
         mnuInicio.setText("Inicio");
         mnuInicio.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -113,7 +108,7 @@ public class FrLogin extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jlbTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(131, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnEsqueciMinhaSenha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnLogar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -121,12 +116,12 @@ public class FrLogin extends javax.swing.JDialog {
                 .addGap(103, 103, 103))
             .addGroup(layout.createSequentialGroup()
                 .addGap(83, 83, 83)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(edtSenha, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel1)
-                    .addComponent(edtLogin, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addContainerGap(86, Short.MAX_VALUE))
+                    .addComponent(edtLogin, javax.swing.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
+                    .addComponent(jLabel2)
+                    .addComponent(edtSenha))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -176,13 +171,16 @@ public class FrLogin extends javax.swing.JDialog {
     
     public void getDadosForm() {
         String email = edtLogin.getText();
-        String senha = edtSenha.getText();
+        char[] aux = edtSenha.getPassword();
+        String senha = String.valueOf(aux);
+        
         //Dados do login do usuário
         if (email.isEmpty() || senha.isEmpty()) {
             JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos!", "", 1);
         } else {
             //Passando todos os dados para o controlador
             loginController.login(email, senha);
+            this.dispose();
         }
 
     }
@@ -207,10 +205,6 @@ public class FrLogin extends javax.swing.JDialog {
     private void mnuInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mnuInicioActionPerformed
 
     }//GEN-LAST:event_mnuInicioActionPerformed
-
-    private void edtSenhaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_edtSenhaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_edtSenhaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -251,7 +245,7 @@ public class FrLogin extends javax.swing.JDialog {
     private javax.swing.JButton btnEsqueciMinhaSenha;
     private javax.swing.JButton btnLogar;
     private javax.swing.JTextField edtLogin;
-    private javax.swing.JTextField edtSenha;
+    private javax.swing.JPasswordField edtSenha;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

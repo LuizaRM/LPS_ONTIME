@@ -5,6 +5,7 @@
  */
 package View;
 
+import Controller.CursoController;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.swing.JOptionPane;
  */
 public class FrAdicionarCurso extends javax.swing.JFrame {
 //    private DefaultListModel lista = new DefaltListModel();
+    CursoController cursoController = new CursoController();
 
     /**
      * Creates new form FrAdicionarHorario
@@ -29,7 +31,8 @@ public class FrAdicionarCurso extends javax.swing.JFrame {
         //para iniciar a tela no meio da tela
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
-        setDefaultCloseOperation(this.EXIT_ON_CLOSE);
+        
+        
 
     }
 
@@ -44,15 +47,13 @@ public class FrAdicionarCurso extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jlbNome = new javax.swing.JLabel();
         jlbTurma1 = new javax.swing.JLabel();
-        edtCodigo = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        edtNome = new javax.swing.JTextField();
         jblTitulo = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnCadastrarUsuario = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -60,11 +61,7 @@ public class FrAdicionarCurso extends javax.swing.JFrame {
             }
         });
 
-        jlbNome.setText("Matriz Curricular");
-
         jlbTurma1.setText("Nome");
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -72,11 +69,9 @@ public class FrAdicionarCurso extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(edtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 295, Short.MAX_VALUE)
-                    .addComponent(jlbNome)
-                    .addComponent(jlbTurma1)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, 295, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jlbTurma1))
                 .addContainerGap(242, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -85,12 +80,8 @@ public class FrAdicionarCurso extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addComponent(jlbTurma1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(edtCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(13, 13, 13)
-                .addComponent(jlbNome)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(110, Short.MAX_VALUE))
+                .addComponent(edtNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(168, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Adicionar Curso", jPanel1);
@@ -144,6 +135,26 @@ public class FrAdicionarCurso extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void getDadosForm() {
+        String nome = edtNome.getText();
+        
+               
+
+        //Dados do login do usuário
+        if (nome.isEmpty()) {
+            JOptionPane.showMessageDialog(rootPane, "Preencha todos os campos!", "", 1);
+        } else {
+            //Passando todos os dados para o controlador
+            cursoController.adicionar(nome);
+            FrListarCurso x = new FrListarCurso();
+            x.setVisible(true);
+            this.dispose();
+        }
+
+    }
+    
+    
     public String validaCampos() {
 
 //       
@@ -177,9 +188,7 @@ public class FrAdicionarCurso extends javax.swing.JFrame {
 
 
     private void btnCadastrarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarUsuarioActionPerformed
-        String msgErro = this.validaCampos();
-        JOptionPane.showMessageDialog(this, msgErro);
-
+        getDadosForm();
     }//GEN-LAST:event_btnCadastrarUsuarioActionPerformed
 
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
@@ -248,12 +257,10 @@ public class FrAdicionarCurso extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrarUsuario;
     private javax.swing.JButton btnCancelar;
-    private javax.swing.JTextField edtCodigo;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JTextField edtNome;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JLabel jblTitulo;
-    private javax.swing.JLabel jlbNome;
     private javax.swing.JLabel jlbTurma1;
     // End of variables declaration//GEN-END:variables
 }

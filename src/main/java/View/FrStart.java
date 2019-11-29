@@ -18,6 +18,7 @@ public class FrStart extends javax.swing.JFrame {
      * Creates new form Login
      */
     public FrStart() {
+        super("OnTime");
         initComponents();
                 Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2);
@@ -55,7 +56,7 @@ public class FrStart extends javax.swing.JFrame {
             }
         });
 
-        btnUsuario.setText("Usúario");
+        btnUsuario.setText("Usuário");
         btnUsuario.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnUsuarioActionPerformed(evt);

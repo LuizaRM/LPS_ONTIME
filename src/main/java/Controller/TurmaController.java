@@ -120,8 +120,8 @@ public class TurmaController {
                 lista.get(i).getAnoTurma(),
                 lista.get(i).getSemestreTurma(),
                 lista.get(i).getPeriodoTurma(),
-                lista.get(i).getIdDisciplina(),
-                lista.get(i).getIdProfessor()};
+                lista.get(i).getDisciplina().getNomeDisciplina(),
+                lista.get(i).getProfessor().getUsuario().getNome()};
 
             modelo.addRow(dados);
 

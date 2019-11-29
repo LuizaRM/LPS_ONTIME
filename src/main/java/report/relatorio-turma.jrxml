@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="relatorio-turma" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6116d9dc-ba18-4892-ac76-5730ecbe0ba5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<field name="disciplina" class="java.lang.String"/>
+	<field name="professor" class="java.lang.String"/>
+	<field name="curso" class="java.lang.String"/>
+	<field name="anoTurma" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="155" y="20" width="226" height="40" uuid="ffd6526f-19ca-4165-9009-37e3b4ace905"/>
+				<textElement>
+					<font size="20"/>
+				</textElement>
+				<text><![CDATA[Relatório de ano - turma]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="61" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="219" height="20" uuid="31128db3-9614-4c54-ac51-18570b62dde2"/>
+				<text><![CDATA[disciplina]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="219" y="0" width="111" height="20" uuid="d34dbd98-b709-4bf6-82a8-0c6a0fb43717"/>
+				<text><![CDATA[anoTurma]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="330" y="0" width="222" height="20" uuid="db99a951-780d-4931-ab57-e66d82353b36"/>
+				<text><![CDATA[professor]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="219" height="20" uuid="5c6140d2-6fbd-480f-b1a5-78d17ffbc08f"/>
+				<textFieldExpression><![CDATA[$F{disciplina}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="219" y="0" width="111" height="20" uuid="fbc97c15-2780-4f0f-8932-2d28158ab3c2"/>
+				<textFieldExpression><![CDATA[$F{anoTurma}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="330" y="0" width="222" height="20" uuid="dd53ad15-f96e-4963-9e5f-a62b8a201126"/>
+				<textFieldExpression><![CDATA[$F{professor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
